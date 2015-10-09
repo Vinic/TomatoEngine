@@ -8,9 +8,12 @@ namespace TomatoEngine
     public class ResourceManager
     {
         private string _imageFolder = "";
+        private string _audioFolder = "";
         private ImageTexture[] _textures;
+        private 
         public ResourceManager() {
             _imageFolder = Path.Combine(Path.GetDirectoryName( Application.ExecutablePath), @"Resources\Image");
+            _audioFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"Resources\Audio");
             string[] imageLocations = Directory.GetFiles(_imageFolder);
             _textures = new ImageTexture[imageLocations.Length];
             for(int i=0;i<imageLocations.Length;i++){
@@ -38,6 +41,8 @@ namespace TomatoEngine
             }
             return null;
         }
+
+
 
     }
 }
