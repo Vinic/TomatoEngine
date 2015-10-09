@@ -9,8 +9,8 @@ namespace TomatoEngine
     {
         private string _imageFolder = "";
         private string _audioFolder = "";
-        private ImageTexture[] _textures;
-        private 
+        private static  ImageTexture[] _textures;
+        private static AudioLocation[] _sounds;
         public ResourceManager() {
             _imageFolder = Path.Combine(Path.GetDirectoryName( Application.ExecutablePath), @"Resources\Image");
             _audioFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"Resources\Audio");
@@ -30,9 +30,19 @@ namespace TomatoEngine
                 }
                 
             }
+            string[] audioLocations = Directory.GetFiles(_audioFolder);
+            _sounds = new AudioLocation[audioLocations.Length];
+            for(int i=0;i<audioLocations.Length;i++){
+                string location = audioLocations[i];
+                string name = Path.GetFileNameWithoutExtension(location);
+                AudioLocation sound = new AudioLocation();
+                sound.Name = name;
+                sound.Location = location;
+                _sounds[i] = sound;
+            }
         }
 
-        public ImageTexture GetTexture(string name)
+        public static ImageTexture GetTexture(string name)
         {
             foreach(ImageTexture tex in _textures){
                 if(tex != null && tex.Name == name){
@@ -42,7 +52,19 @@ namespace TomatoEngine
             return null;
         }
 
+        public static string GetSoundLocationByName(string name)
+        {
+            foreach(AudioLocation l in _sounds){
+                if(l.Name == name){
+                    return l.Location;
+                }
+            }
+            return "";
+        }
 
-
+    }
+    class AudioLocation{
+        public string Location{get;set;}
+        public string Name{get;set;}
     }
 }
