@@ -15,7 +15,7 @@ namespace TomatoEngine
             gl.Enable(OpenGL.GL_BLEND);
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             resourceManager = new ResourceManager();
-            var tex = resourceManager.GetTexture("test");
+            var tex = ResourceManager.GetTexture("test");
             tex.InitTexture(gl);
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
@@ -26,7 +26,7 @@ namespace TomatoEngine
         public void Draw(OpenGL gl)
         {
             if(StartupComplete){
-                var tex = resourceManager.GetTexture("test");
+                var tex = ResourceManager.GetTexture("test");
                 
                 gl.Begin(OpenGL.GL_QUADS);
                 gl.Color(1f,1f,1f);
