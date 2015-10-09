@@ -10,7 +10,7 @@ namespace TomatoEngine
         public AudioObject(string location, bool playAudio)
         {
             Location = location;
-            _tomatoPlayer = new SoundPlayer(@location);
+            _tomatoPlayer = new SoundPlayer(location);
             if (playAudio)
             {
                 _tomatoPlayer.Play();
@@ -29,10 +29,10 @@ namespace TomatoEngine
 
 
 
-    static class SoundPool
+    public static class SoundPool
     {
         private static List<AudioObject> _AudioObjectList = new List<AudioObject>();
-        static void PlaySound(string name, int volume)
+        public static void PlaySound(string name, int volume)
         {
             string location = ResourceManager.GetSoundLocationByName(name);
             AudioObject ex = null;

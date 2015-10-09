@@ -22,12 +22,12 @@ namespace TomatoEngine
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
             StartupComplete = true;
+            SoundPool.PlaySound("piano2", 100);
         }
         public void Draw(OpenGL gl)
         {
             if(StartupComplete){
                 var tex = ResourceManager.GetTexture("test");
-                
                 gl.Begin(OpenGL.GL_QUADS);
                 gl.Color(1f,1f,1f);
                 tex.BindToGL(gl);
