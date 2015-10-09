@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundPlayer.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TomatoMainEngine.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
