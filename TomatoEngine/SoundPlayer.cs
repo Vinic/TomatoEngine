@@ -5,21 +5,22 @@ namespace TomatoEngine
 {
     class AudioObject
     {
-        public string Location = "";
+        public string sLocation = "";
         private SoundPlayer _tomatoPlayer;
         public AudioObject(string location, bool playAudio)
         {
-            Location = location;
-            _tomatoPlayer = new SoundPlayer(location);
-            if (playAudio)
-            {
-                _tomatoPlayer.Play();
+            if(location != ""){
+                sLocation = location;
+                _tomatoPlayer = new SoundPlayer(location);
+                if (playAudio)
+                {
+                    _tomatoPlayer.Play();
+                }
+                else
+                {
+                    _tomatoPlayer.Stop();
+                }
             }
-            else
-            {
-                _tomatoPlayer.Stop();
-            }
-            
         }
         public void Play()
         {
@@ -32,13 +33,13 @@ namespace TomatoEngine
     public static class SoundPool
     {
         private static List<AudioObject> _AudioObjectList = new List<AudioObject>();
-        public static void PlaySound(string name, int volume)
+        public static void PlaySound(string name)
         {
             string location = ResourceManager.GetSoundLocationByName(name);
             AudioObject ex = null;
             foreach(AudioObject x in _AudioObjectList)
             {
-                if (x.Location.Equals(location))
+                if (x.sLocation.Equals(location))
                 {
                     ex = x;
                 }
