@@ -1,11 +1,15 @@
 ﻿using SharpGL;
+using System.Collections.Generic;
 
 namespace TomatoEngine
 {
     public class TomatoMainEngine
     {
         public bool StartupComplete = false;
-        public static ResourceManager resourceManager;
+        public ResourceManager resourceManager;
+        public static List<RenderObject> Objects = new List<RenderObject>();
+        public RenderEngine renderEngine = new RenderEngine();
+        private float r = 0f;
         public TomatoMainEngine()
         {
             
@@ -23,27 +27,18 @@ namespace TomatoEngine
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
             StartupComplete = true;
             SoundPool.PlaySound("piano2", 100);
+            Objects.Add(new RenderObject());
+            Objects.Add(new RenderObject(1,2,1,1));
         }
         public void Draw(OpenGL gl)
         {
             if(StartupComplete){
-                var tex = ResourceManager.GetTexture("test");
-                gl.Begin(OpenGL.GL_QUADS);
-                gl.Color(1f,1f,1f);
-                tex.BindToGL(gl);
-                gl.TexCoord(0, 0);
-                gl.Vertex(1f, 2f);
-                gl.TexCoord(0, 1);
-                gl.Vertex(2f, 2f);
-                gl.TexCoord(1, 1);
-                gl.Vertex(2f, 1f);
-                gl.TexCoord(1, 0);
-                gl.Vertex(1f, 1f);
-                gl.End();
+                Objects[0].SetRot(r);
+                r = r + 0.05f;
+                renderEngine.RenderObjects(gl, Objects.ToArray());
             }
             else
             {
-                
                 gl.DrawText(100,100,1f,1f,1f,"verdana", 20, "Loading");
             }
         }
@@ -58,7 +53,7 @@ namespace TomatoEngine
             gl.Perspective(60.0f, aspect, 0.01, 100.0);
 
             //  Use the 'look at' helper function to position and aim the camera.
-            gl.LookAt(0, 0, -5, 0, 0, 0, 0, 1, 0);
+            gl.LookAt(0, 0, -30, 0, 0, 0, 0, 1, 0);
 
             //  Set the modelview matrix.
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
