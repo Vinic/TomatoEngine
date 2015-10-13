@@ -44,10 +44,13 @@ namespace TomatoEngine
                 foreach(RenderObject o in Objects){
                     o.SetRot(r);
                 }
-                if(ControlKeys.IsKeyDown("W")){
+                if(ControlKeys.IsKeyDown("A")){
                     r = r + 0.05f;
                 }
-                
+                if (ControlKeys.IsKeyDown("D"))
+                {
+                    r = r - 0.05f;
+                }
                 CamController.X = r;
                 
                 renderEngine.RenderObjects(gl, Objects.ToArray());

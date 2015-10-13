@@ -39,7 +39,7 @@
             this.openGLControl.FrameRate = 60;
             this.openGLControl.Location = new System.Drawing.Point(0, 0);
             this.openGLControl.Name = "openGLControl";
-            this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL4_4;
+            this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControl.RenderContextType = SharpGL.RenderContextType.FBO;
             this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
             this.openGLControl.Size = new System.Drawing.Size(624, 391);
