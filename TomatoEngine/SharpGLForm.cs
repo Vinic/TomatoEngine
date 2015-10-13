@@ -37,10 +37,7 @@ namespace TomatoEngine
             OpenGL gl = openGLControl.OpenGL;
 
             //  Clear the color and depth buffer.
-            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
 
-            //  Load the identity matrix.
-            gl.LoadIdentity();
             //Add the engine Render Method
             engine.Draw(gl);
         }
@@ -82,5 +79,20 @@ namespace TomatoEngine
         /// The current rotation.
         /// </summary>
         private float rotation = 0.0f;
+
+        private void openGLControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            engine.KeyDown(e.KeyCode);
+        }
+
+        private void openGLControl_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void openGLControl_KeyUp(object sender, KeyEventArgs e)
+        {
+            engine.KeyUp(e.KeyCode);
+        }
     }
 }

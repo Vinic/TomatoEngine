@@ -1,5 +1,7 @@
 ﻿using SharpGL;
+using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace TomatoEngine
 {
@@ -12,10 +14,11 @@ namespace TomatoEngine
         private float r = 0f;
         public TomatoMainEngine()
         {
-            
+
         }
         public void InitEngine(OpenGL gl)
         {
+            Random r = new Random();
             gl.Enable(OpenGL.GL_BLEND);
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             resourceManager = new ResourceManager();
@@ -26,16 +29,29 @@ namespace TomatoEngine
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
             gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
             StartupComplete = true;
-            SoundPool.PlaySound("piano2", 100);
-            Objects.Add(new RenderObject());
-            Objects.Add(new RenderObject(1,2,1,1));
+            SoundPool.PlaySound("piano2");
+            for (var i = 0; i < 3000; i++ )
+            {
+                Objects.Add(new RenderObject(r.Next(-25, 25), r.Next(-15, 15), 1, 1));
+            }
+            
+
+
         }
         public void Draw(OpenGL gl)
         {
             if(StartupComplete){
-                Objects[0].SetRot(r);
-                r = r + 0.05f;
+                foreach(RenderObject o in Objects){
+                    o.SetRot(r);
+                }
+                if(ControlKeys.IsKeyDown("W")){
+                    r = r + 0.05f;
+                }
+                
+                CamController.X = r;
+                
                 renderEngine.RenderObjects(gl, Objects.ToArray());
+
             }
             else
             {
@@ -51,12 +67,21 @@ namespace TomatoEngine
 
             //  Create a perspective transformation.
             gl.Perspective(60.0f, aspect, 0.01, 100.0);
-
+            CamController.Aspect = aspect;
             //  Use the 'look at' helper function to position and aim the camera.
-            gl.LookAt(0, 0, -30, 0, 0, 0, 0, 1, 0);
+            CamController.SetCam(gl);
 
             //  Set the modelview matrix.
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
+        }
+
+        public void KeyDown(Keys key)
+        {
+            ControlKeys.KeyDown(key);
+        }
+        public void KeyUp(Keys key)
+        {
+            ControlKeys.KeyUp(key);
         }
 
     }

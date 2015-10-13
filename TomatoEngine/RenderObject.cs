@@ -65,13 +65,13 @@ namespace TomatoEngine
             gl.Color(1f, 1f, 1f);
             _texture.BindToGL(gl);
             gl.TexCoord(0, 0);
-            gl.Vertex(pointData[0].x, pointData[0].y);
+                gl.Vertex(pointData[0].x, pointData[0].y);
             gl.TexCoord(0, 1);
-            gl.Vertex(pointData[1].x, pointData[1].y);
+                gl.Vertex(pointData[1].x, pointData[1].y);
             gl.TexCoord(1, 1);
-            gl.Vertex(pointData[2].x, pointData[2].y);
+                gl.Vertex(pointData[2].x, pointData[2].y);
             gl.TexCoord(1, 0);
-            gl.Vertex(pointData[3].x, pointData[3].y);
+                gl.Vertex(pointData[3].x, pointData[3].y);
             gl.End();
         }
     }

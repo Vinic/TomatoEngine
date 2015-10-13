@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CamController.cs" />
+    <Compile Include="ControlKeys.cs" />
     <Compile Include="ImageTexture.cs" />
     <Compile Include="RenderEngine.cs" />
     <Compile Include="RenderObject.cs" />
