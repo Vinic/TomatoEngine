@@ -5,15 +5,18 @@ using System.Text;
 
 namespace TomatoEngine
 {
-    class GameSettings
+    public class GameSettings
     {
         private float _fSpeed;
-        private bool[] _buttons;
 
-		public GameSettings(float fSpeed, bool[] buttons)
+		public GameSettings(float fSpeed)
         {
             _fSpeed = fSpeed;
-            _buttons = buttons;
+        }
+
+        public float GetSpeed()
+        {
+            return _fSpeed;
         }
 
 		public void GamePause(bool Pause)

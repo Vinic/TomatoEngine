@@ -8,7 +8,7 @@ namespace TomatoEngine
 {
     public class RenderEngine
     {
-        public void RenderObjects(OpenGL gl, RenderObject[] objects, Map map)
+        public void RenderObjects(OpenGL gl, RenderObject[] objects)
         {
             
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
@@ -17,7 +17,6 @@ namespace TomatoEngine
             gl.LoadIdentity();
             CamController.SetCam(gl);
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
-            map.Draw(gl);
             foreach(RenderObject obj in objects){
                 obj.Draw(gl);
             }

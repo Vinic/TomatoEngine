@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.openGLControl = new SharpGL.OpenGLControl();
+            this.GameUpdateTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,7 +42,7 @@
             this.openGLControl.Location = new System.Drawing.Point(0, 0);
             this.openGLControl.Name = "openGLControl";
             this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
-            this.openGLControl.RenderContextType = SharpGL.RenderContextType.FBO;
+            this.openGLControl.RenderContextType = SharpGL.RenderContextType.NativeWindow;
             this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
             this.openGLControl.Size = new System.Drawing.Size(624, 391);
             this.openGLControl.TabIndex = 0;
@@ -50,6 +52,12 @@
             this.openGLControl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.openGLControl_KeyDown);
             this.openGLControl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.openGLControl_KeyPress);
             this.openGLControl.KeyUp += new System.Windows.Forms.KeyEventHandler(this.openGLControl_KeyUp);
+            // 
+            // GameUpdateTimer
+            // 
+            this.GameUpdateTimer.Enabled = true;
+            this.GameUpdateTimer.Interval = 10;
+            this.GameUpdateTimer.Tick += new System.EventHandler(this.GameUpdateTimer_Tick);
             // 
             // SharpGLForm
             // 
@@ -67,6 +75,7 @@
         #endregion
 
         private SharpGL.OpenGLControl openGLControl;
+        private System.Windows.Forms.Timer GameUpdateTimer;
     }
 }
 

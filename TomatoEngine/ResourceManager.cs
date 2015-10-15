@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using SharpGL;
 
 namespace TomatoEngine
 {
@@ -26,7 +27,7 @@ namespace TomatoEngine
                     _textures[i] = texture;
                 }
                 catch(Exception err){
-                    
+                    System.Console.Out.WriteLine(err.Message);
                 }
                 
             }
@@ -39,6 +40,12 @@ namespace TomatoEngine
                 sound.Name = name;
                 sound.Location = location;
                 _sounds[i] = sound;
+            }
+        }
+
+        public void InitTextures(OpenGL gl){
+            foreach(ImageTexture tex in _textures){
+                tex.InitTexture(gl);
             }
         }
 

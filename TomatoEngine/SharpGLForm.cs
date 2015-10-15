@@ -33,12 +33,7 @@ namespace TomatoEngine
         /// <param name="e">The <see cref="RenderEventArgs"/> instance containing the event data.</param>
         private void openGLControl_OpenGLDraw(object sender, RenderEventArgs e)
         {
-            //  Get the OpenGL object.
             OpenGL gl = openGLControl.OpenGL;
-
-            //  Clear the color and depth buffer.
-
-            //Add the engine Render Method
             engine.Draw(gl);
         }
 
@@ -78,7 +73,6 @@ namespace TomatoEngine
         /// <summary>
         /// The current rotation.
         /// </summary>
-        private float rotation = 0.0f;
 
         private void openGLControl_KeyDown(object sender, KeyEventArgs e)
         {
@@ -93,6 +87,12 @@ namespace TomatoEngine
         private void openGLControl_KeyUp(object sender, KeyEventArgs e)
         {
             engine.KeyUp(e.KeyCode);
+        }
+
+        private void GameUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            engine.Update();
+
         }
     }
 }

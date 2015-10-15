@@ -31,7 +31,7 @@ namespace TomatoEngine
         public static bool IsKeyDown(string key)
         {
             bool isDown = false;
-            Keys k = (Keys)keyC.ConvertFromString(key);
+            Keys k = (Keys)System.Enum.Parse(typeof(Keys), key.ToUpper());
             foreach (Keys down in Downs)
             {
                 if (down == k)

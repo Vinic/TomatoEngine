@@ -17,9 +17,13 @@ namespace TomatoEngine
         {
             _texture = new SharpGL.SceneGraph.Assets.Texture();
             _texture.Create(gl, _image);
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, _texture.TextureName);
         }
-        public void BindToGL(OpenGL gl){
+
+        public void UseTexure(OpenGL gl)
+        {
             _texture.Bind(gl);
+            gl.ActiveTexture(_texture.TextureName);
         }
     }
 }
