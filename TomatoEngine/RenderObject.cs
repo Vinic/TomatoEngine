@@ -60,7 +60,6 @@ namespace TomatoEngine
         public void Draw(OpenGL gl)
         {
             PointFloat[] pointData = RenderLogics.RectPoint(_pos, _size,_rot);
-
             gl.Begin(OpenGL.GL_QUADS);
             gl.Color(1f, 1f, 1f);
             _texture.BindToGL(gl);

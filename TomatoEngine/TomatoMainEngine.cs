@@ -12,31 +12,29 @@ namespace TomatoEngine
         public static List<RenderObject> Objects = new List<RenderObject>();
         public RenderEngine renderEngine = new RenderEngine();
         private float r = 0f;
+        private Map map;
         public TomatoMainEngine()
         {
 
         }
         public void InitEngine(OpenGL gl)
         {
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
+            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
             Random r = new Random();
             gl.Enable(OpenGL.GL_BLEND);
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             resourceManager = new ResourceManager();
             var tex = ResourceManager.GetTexture("test");
             tex.InitTexture(gl);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
+
             StartupComplete = true;
             SoundPool.PlaySound("piano2");
-            for (var i = 0; i < 3000; i++ )
-            {
-                Objects.Add(new RenderObject(r.Next(-25, 25), r.Next(-15, 15), 1, 1));
-            }
-            
-
-
+            map = new Map(100000);
+            map.Init(gl);
+            Objects.Add(new RenderObject());
         }
         public void Draw(OpenGL gl)
         {
@@ -45,15 +43,15 @@ namespace TomatoEngine
                     o.SetRot(r);
                 }
                 if(ControlKeys.IsKeyDown("A")){
-                    r = r + 0.05f;
+                    r = r + 0.1f;
                 }
                 if (ControlKeys.IsKeyDown("D"))
                 {
-                    r = r - 0.05f;
+                    r = r - 0.1f;
                 }
                 CamController.X = r;
                 
-                renderEngine.RenderObjects(gl, Objects.ToArray());
+                renderEngine.RenderObjects(gl, Objects.ToArray(), map);
 
             }
             else

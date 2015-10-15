@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -59,6 +60,7 @@
     <Compile Include="CamController.cs" />
     <Compile Include="ControlKeys.cs" />
     <Compile Include="ImageTexture.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="RenderEngine.cs" />
     <Compile Include="RenderObject.cs" />
     <Compile Include="ResourceManager.cs" />
@@ -117,6 +119,9 @@
     <Content Include="Resources\Audio\piano2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Image\ground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
