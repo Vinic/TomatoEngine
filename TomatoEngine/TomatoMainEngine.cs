@@ -11,6 +11,7 @@ namespace TomatoEngine
         public ResourceManager resourceManager;
         public static List<RenderObject> Objects = new List<RenderObject>();
         public RenderEngine renderEngine = new RenderEngine();
+        //public GameSettings = new GameSettings();
         private float r = 0f;
         private Map map;
         public TomatoMainEngine()
