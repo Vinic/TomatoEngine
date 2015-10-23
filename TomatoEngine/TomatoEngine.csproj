@@ -123,6 +123,9 @@
     <Content Include="Resources\Audio\piano2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Image\background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Image\spaceShip.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
