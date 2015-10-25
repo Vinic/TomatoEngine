@@ -14,9 +14,11 @@ namespace TomatoEngine
             //_Phys = Phys;
         }
 
-        private static void Collide(RenderObject Phys, RenderObject Phys2)
+        public static void Collide(RenderObject Phys, RenderObject Phys2)
         {
-
+            //Phys.RenderOuterScreen = true;
+            //Phys2.RenderOuterScreen = true;
+            //Console.WriteLine("Hit!");
         }
     }
 }
