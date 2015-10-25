@@ -13,7 +13,8 @@ namespace TomatoEngine.SpaceGame
         public SpaceShip() : base()
         {
             SetTexture(ResourceManager.GetTexture("spaceShip"));
-            engineFirePar.SetLifeTime(20);
+            engineFirePar.SetLifeTime(10, 50);
+            engineFirePar.SetRandomSpeed(true, 0.1f);
         }
 
         public override void Update(GameSettings settings)
@@ -50,7 +51,7 @@ namespace TomatoEngine.SpaceGame
             float yAdd = (float)Math.Cos((double)-GetRotation());
             _vel.x = _vel.x + ( xAdd - _vel.x )/30;
             _vel.y = _vel.y + ( yAdd - _vel.y )/30;
-            engineFirePar.Blow(0.2f);
+            engineFirePar.Blow(0.4f, 10);
             
         }
         private void MoveBackward()
