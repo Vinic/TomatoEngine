@@ -111,8 +111,7 @@ namespace TomatoEngine
         {
             PointFloat[] pointData = RenderLogics.RectPoint(_pos, _size, _rot);
             gl.Begin(OpenGL.GL_LINES);
-            
-            gl.Color(1f, 1f, 0f);
+            gl.Color(1f, 1f, 1f);
             gl.Vertex(pointData[1].x, pointData[1].y);
             gl.Vertex(pointData[0].x, pointData[0].y);
             gl.Vertex(pointData[0].x, pointData[0].y);
