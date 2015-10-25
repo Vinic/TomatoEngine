@@ -9,6 +9,7 @@ namespace TomatoEngine
     {
         public static void SpaceTest(TomatoMainEngine engine){
             TomatoMainEngine.GameObjects.Add(new SpaceGame.SpaceShip());
+            TomatoMainEngine.AddGameObject(new SpaceGame.Asteroid());
         }
     }
 }

@@ -63,6 +63,7 @@
     <Compile Include="Levels.cs" />
     <Compile Include="Particle\Particle.cs" />
     <Compile Include="Particle\ParticleSystem.cs" />
+    <Compile Include="PhysEngine.cs" />
     <Compile Include="RenderEngine.cs" />
     <Compile Include="RenderObject.cs" />
     <Compile Include="ResourceManager.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundPlayer.cs" />
+    <Compile Include="SpaceGame\Asteroid.cs" />
     <Compile Include="SpaceGame\SpaceShip.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TomatoMainEngine.cs" />
@@ -123,6 +125,7 @@
     <Content Include="Resources\Audio\piano2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Image\asteroid.png" />
     <Content Include="Resources\Image\spaceShip.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
