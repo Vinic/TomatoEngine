@@ -8,6 +8,7 @@ namespace TomatoEngine
 {
     public class RenderEngine
     {
+        private RenderMode _mode = RenderMode.Normal;
         public void RenderObjects(OpenGL gl, RenderObject[] objects)
         {
             
@@ -17,11 +18,28 @@ namespace TomatoEngine
             gl.LoadIdentity();
             CamController.SetCam(gl);
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
-            foreach(RenderObject obj in objects){
-                obj.Draw(gl);
+            if(_mode == RenderMode.WireFrame){
+                
+                foreach(RenderObject obj in objects){
+                    gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
+                    obj.DrawWireFrame(gl);
+                    obj.Draw(gl);
+                }
+            }
+            else 
+            {
+                foreach ( RenderObject obj in objects )
+                {
+                    obj.Draw(gl);
+                }
             }
         }
+        public void SetRenderMode(RenderMode mode)
+        {
+            _mode = mode;
+        }
     }
+
     public static class RenderLogics
     {
         public static PointFloat[] RectPoint(PointFloat pos,PointFloat size, float t){
@@ -46,5 +64,11 @@ namespace TomatoEngine
             x = xVal;
             y = yVal;
         }
+    }
+    public enum RenderMode
+    {
+        Normal = 1,
+        WireFrame = 2,
+        NoTextures = 3
     }
 }

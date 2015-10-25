@@ -31,6 +31,7 @@ namespace TomatoEngine
             gl.Enable(OpenGL.GL_BLEND);
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             gl.Enable(OpenGL.GL_DEPTH_TEST);
+            gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
             gl.ShadeModel(OpenGL.GL_SMOOTH);
             Draw(gl);
             resourceManager = new ResourceManager();
@@ -67,7 +68,6 @@ namespace TomatoEngine
         public void Draw(OpenGL gl)
         {
             if(StartupComplete){
-
                 renderEngine.RenderObjects(gl, GameObjects.ToArray());
             }
             else
@@ -96,11 +96,26 @@ namespace TomatoEngine
 
         public void KeyDown(Keys key)
         {
-            ControlKeys.KeyDown(key);
+            if ( key != Keys.F1 && key != Keys.F2 )
+            {
+                ControlKeys.KeyDown(key);
+            }
         }
         public void KeyUp(Keys key)
         {
-            ControlKeys.KeyUp(key);
+            if ( key != Keys.F1 && key != Keys.F2 )
+            {
+                ControlKeys.KeyUp(key);
+            }
+            else if ( key == Keys.F1 )
+            {
+                renderEngine.SetRenderMode(RenderMode.WireFrame);
+            }
+            else if ( key == Keys.F2 )
+            {
+                renderEngine.SetRenderMode(RenderMode.Normal);
+            }
+            
         }
         public static int GetNewEntityId()
         {

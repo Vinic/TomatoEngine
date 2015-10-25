@@ -7,11 +7,13 @@ namespace TomatoEngine.Particle
 {
     public class ParticleSystem
     {
-        private int _lifetime = 100;
+        private int _maxlifetime = 100, _minlifetime = 100;
         private ImageTexture _texture;
         private PointFloat _pos = new PointFloat(0,0);
         private PointFloat _size = new PointFloat(0.2f, 0.2f);
-        private float _rot = 0f;
+        private float _rot = 0f, _spread = 0.3f, _speedSpread = 0.0f;
+        private Random _random = new Random();
+        private bool _ransomSpeed = false;
         public ParticleSystem(string texture)
         {
             _texture = ResourceManager.GetTexture(texture);
@@ -19,7 +21,16 @@ namespace TomatoEngine.Particle
 
         public void SetLifeTime(int lifetime)
         {
-            _lifetime = lifetime;
+            _maxlifetime = lifetime;
+            _minlifetime = lifetime;
+        }
+        public void SetLifeTime(int minlifetime, int maxlifetime)
+        {
+            if(minlifetime > maxlifetime){
+                minlifetime = maxlifetime;
+            }
+            _maxlifetime = maxlifetime;
+            _minlifetime = minlifetime;
         }
 
         public void SetRot(float rot)
@@ -64,10 +75,43 @@ namespace TomatoEngine.Particle
             _size.x = sx;
             _size.y = sy;
         }
+        public void SetSpread(float spread)
+        {
+            _spread = spread;
+        }
+        public void SetRandomSpeed(bool on)
+        {
+            _ransomSpeed = on;
+        }
+        public void SetRandomSpeed(bool on, float amount)
+        {
+            _ransomSpeed = on;
+            _speedSpread = amount;
+        }
+        private float RandomSpread(float input, float spread)
+        {
+            return input - ( spread / 2f ) + ( (float)_random.Next((int)( spread * 10000000 )) ) / 10000000;
+        }
+
         public void Blow(float speed)
         {
-            Particle p = new Particle(_texture,_pos.x,_pos.y,_rot,speed,_lifetime, _size.x, _size.y);
+            if(_ransomSpeed){
+                speed = RandomSpread(speed, _speedSpread);
+            }
+            Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y);
             TomatoMainEngine.AddGameObject(p);
+        }
+        public void Blow(float speed, int amount)
+        {
+            for ( int a = 0; a < amount; a++ )
+            {
+                if ( _ransomSpeed )
+                {
+                    speed = RandomSpread(speed, _speedSpread);
+                }
+                Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y);
+                TomatoMainEngine.AddGameObject(p);
+            }
         }
     }
 }
