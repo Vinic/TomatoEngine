@@ -6,6 +6,7 @@ namespace TomatoEngine
     public class ImageTexture
     {
         public string Name = "";
+        public uint Id = 0;
         private Bitmap _image;
         private SharpGL.SceneGraph.Assets.Texture _texture;
         public ImageTexture(Bitmap image, string name)
@@ -17,6 +18,7 @@ namespace TomatoEngine
         {
             _texture = new SharpGL.SceneGraph.Assets.Texture();
             _texture.Create(gl, _image);
+            Id = _texture.TextureName;
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, _texture.TextureName);
         }
 
