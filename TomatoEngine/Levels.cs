@@ -9,9 +9,9 @@ namespace TomatoEngine
     {
         public static void SpaceTest(TomatoMainEngine engine){
             //adds the background
-            RenderObject background = new RenderObject(0,0,30,30);
-            background.SetTexture(ResourceManager.GetTexture("background"));
-            TomatoMainEngine.GameObjects.Add(background);
+            //RenderObject background = new RenderObject(0,0,30,30);
+            //background.SetTexture(ResourceManager.GetTexture("background"));
+            //TomatoMainEngine.GameObjects.Add(background);
             //add a space ship
             TomatoMainEngine.GameObjects.Add(new SpaceGame.SpaceShip());
             TomatoMainEngine.AddGameObject(new SpaceGame.Asteroid());

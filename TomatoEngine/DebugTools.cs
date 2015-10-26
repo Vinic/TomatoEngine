@@ -41,6 +41,16 @@ namespace TomatoEngine
                 this.Hide();
             }
         }
+        public void Hide() 
+        {
+            base.Hide();
+            UpdateInfoTimer.Stop();
+        }
+        public void Show()
+        {
+            base.Show();
+            UpdateInfoTimer.Start();
+        }
 
         private void DebugTools_Activated(object sender, EventArgs e)
         {
@@ -55,6 +65,11 @@ namespace TomatoEngine
         private void Pause_Toggle_CheckedChanged(object sender, EventArgs e)
         {
             _engine.Paused = Pause_Toggle.Checked;
+        }
+
+        private void UpdateInfoTimer_Tick(object sender, EventArgs e)
+        {
+            ObjectsAmountText.Text = "Active objects count: " + TomatoMainEngine.GameObjects.Count;
         }
     }
 }
