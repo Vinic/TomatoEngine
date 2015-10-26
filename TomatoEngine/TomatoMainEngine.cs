@@ -16,64 +16,96 @@ namespace TomatoEngine
         private static Random GameRandom = new Random();
         private static List<RenderObject> trash = new List<RenderObject>();
         private static List<RenderObject> toAdd = new List<RenderObject>();
+        public static DebugTools DebugTools;
+        public bool Paused = false;
         public TomatoMainEngine()
         {
-
+            DebugTools = new DebugTools(this);
+            DebugTools.LogToConsole("Start Up");
         }
         public void InitEngine(OpenGL gl)
         {
-
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
-            gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
-            Random r = new Random();
-            gl.Enable(OpenGL.GL_BLEND);
-            gl.Enable(OpenGL.GL_TEXTURE_2D);
-            gl.Enable(OpenGL.GL_DEPTH_TEST);
-            gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            gl.ShadeModel(OpenGL.GL_SMOOTH);
-            Draw(gl);
-            resourceManager = new ResourceManager();
-            resourceManager.InitTextures(gl);
-            StartupComplete = true;
-            Levels.SpaceTest(this);
+            try
+            {
+                DebugTools.LogToConsole("Prepareing GL");
+                gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
+                gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
+                gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_LINEAR);
+                gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_LINEAR);
+                Random r = new Random();
+                gl.Enable(OpenGL.GL_BLEND);
+                gl.Enable(OpenGL.GL_TEXTURE_2D);
+                gl.Enable(OpenGL.GL_DEPTH_TEST);
+                gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
+                gl.ShadeModel(OpenGL.GL_SMOOTH);
+                Draw(gl);
+                DebugTools.LogToConsole("Loading Resources");
+                resourceManager = new ResourceManager();
+                DebugTools.LogToConsole("Applying Textures");
+                resourceManager.InitTextures(gl);
+                DebugTools.LogToConsole("Loading Level");
+                Levels.SpaceTest(this);
+                StartupComplete = true;
+            }catch(Exception error){
+                DebugTools.LogError(error);
+            }
+            
         }
 
         public void Update()
         {
-            if(!StartupComplete){
-                return;
-            }
-            if(trash.Count > 0){
-                for ( int i=0; i<trash.Count; i++ )
-                {
-                    GameObjects.Remove(trash[i]);
+            try { 
+                if(!StartupComplete){
+                    return;
                 }
-                trash.Clear();
-            }
-            if(toAdd.Count > 0){
-                for ( int i=0; i<toAdd.Count; i++ )
-                {
-                    GameObjects.Add(toAdd[i]);
+                if(trash.Count > 0){
+                    for ( int i=0; i<trash.Count; i++ )
+                    {
+                        GameObjects.Remove(trash[i]);
+                    }
+                    trash.Clear();
                 }
-                toAdd.Clear();
+                if(toAdd.Count > 0){
+                    for ( int i=0; i<toAdd.Count; i++ )
+                    {
+                        GameObjects.Add(toAdd[i]);
+                    }
+                    toAdd.Clear();
+                }
+                if(!Paused){
+                    foreach (RenderObject obj in GameObjects)
+                    {
+                        obj.Update(settings);
+                    }
+                }
             }
-            foreach(RenderObject obj in GameObjects){
-                obj.Update(settings);
+            catch (Exception error)
+            {
+                DebugTools.LogError(error);
             }
         }
 
 
         public void Draw(OpenGL gl)
         {
-            if(StartupComplete){
-                renderEngine.RenderObjects(gl, GameObjects.ToArray());
-            }
-            else
+            try
             {
-                gl.DrawText(100,100,1f,1f,1f,"verdana", 20, "Loading");
+                if (StartupComplete)
+                {
+                    renderEngine.RenderObjects(gl, GameObjects.ToArray());
+                    if(Paused){
+                        gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Paused");
+                    }
+                }
+                else
+                {
+                    gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Loading");
+                }
             }
+            catch(Exception error){
+                DebugTools.LogError(error);
+            }
+            
         }
 
         public void Resized(OpenGL gl, double aspect){
@@ -96,24 +128,39 @@ namespace TomatoEngine
 
         public void KeyDown(Keys key)
         {
-            if ( key != Keys.F1 && key != Keys.F2 )
+            if ( key != Keys.F1 && key != Keys.F2 && key != Keys.F12)
             {
                 ControlKeys.KeyDown(key);
             }
         }
         public void KeyUp(Keys key)
         {
-            if ( key != Keys.F1 && key != Keys.F2 )
+            if (key != Keys.F1 && key != Keys.F2 && key != Keys.F12)
             {
                 ControlKeys.KeyUp(key);
             }
             else if ( key == Keys.F1 )
             {
                 renderEngine.SetRenderMode(RenderMode.WireFrame);
+                DebugTools.LogToConsole("RenderMode: WireFrame");
             }
             else if ( key == Keys.F2 )
             {
                 renderEngine.SetRenderMode(RenderMode.Normal);
+                DebugTools.LogToConsole("RenderMode: Normal");
+            }
+            else if (key == Keys.F12)
+            {
+                if(DebugTools.Visible == false){
+                    DebugTools.Show();
+                    DebugTools.LogToConsole("Console open");
+                }
+                else
+                {
+                    DebugTools.Hide();
+                }
+                
+
             }
             
         }

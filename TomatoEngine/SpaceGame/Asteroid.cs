@@ -11,6 +11,7 @@ namespace TomatoEngine.SpaceGame
         private PointFloat _vel = new PointFloat(0, 0);
         public Asteroid() : base()
         {
+            Type = "SpaceGame.Asteroid";
             SetTexture(ResourceManager.GetTexture("asteroid"));
         }
 

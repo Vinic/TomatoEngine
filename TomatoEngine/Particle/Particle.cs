@@ -11,6 +11,7 @@ namespace TomatoEngine.Particle
         private float _speed = 1;
         public Particle(ImageTexture texture, float x, float y, float _rotation, float speed, int lifetime, float sizex, float sizey) : base()
         {
+            Type = "Particle.Particle";
             SetSize(sizex,sizey);
             SetTexture(texture);
             _lifeTime = lifetime;

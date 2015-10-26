@@ -13,6 +13,7 @@ namespace TomatoEngine
         private PointFloat _pos = new PointFloat(0,0), _size = new PointFloat(1,1);
         private ImageTexture _texture = ResourceManager.GetTexture("test");
         public int EntityId;
+        public string Type = "DefaultObject";
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();

@@ -12,6 +12,7 @@ namespace TomatoEngine.SpaceGame
         private Particle.ParticleSystem engineFirePar = new Particle.ParticleSystem("engineFire");
         public SpaceShip() : base()
         {
+            Type = "SpaceGame.SpaceShip";
             SetTexture(ResourceManager.GetTexture("spaceShip"));
             engineFirePar.SetLifeTime(10, 50);
             engineFirePar.SetRandomSpeed(true, 0.1f);
