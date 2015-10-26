@@ -83,6 +83,15 @@ namespace TomatoEngine
             {
                 DebugTools.LogError(error);
             }
+
+            for(int i = 0; i < GameObjects.Count; i++)
+            {
+                if(GameObjects[i].GetPosition().y == GameObjects[i].GetPosition().y
+                    || GameObjects[i].GetPosition().x == GameObjects[i].GetPosition().x)
+                {
+                    PhysEngine.Collide(GameObjects[i], GameObjects[i]);
+                }
+            }
         }
 
 

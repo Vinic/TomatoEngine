@@ -30,6 +30,7 @@ namespace TomatoEngine.SpaceGame
             }
             if(ControlKeys.IsKeyDown("w")){
                 MoveForward();
+                //Console.WriteLine(GetPosition().x + " " + GetPosition().y);
             }
 
             if ( ControlKeys.IsKeyDown("d") )

@@ -8,7 +8,7 @@ namespace TomatoEngine.SpaceGame
     class Asteroid : RenderObject
     {
         private float _rotV;
-        private PointFloat _vel = new PointFloat(0, 0);
+        private PointFloat _vel = new PointFloat(1, 0);
         public Asteroid() : base()
         {
             Type = "SpaceGame.Asteroid";
