@@ -21,4 +21,17 @@ namespace TomatoEngine
             //Console.WriteLine("Hit!");
         }
     }
+
+    class PhysHandler : RenderObject
+    {
+        private int[] _colzone;
+        
+        public PhysHandler()
+        {
+            _colzone = new int[]
+            { };
+        }
+
+        
+    }
 }
