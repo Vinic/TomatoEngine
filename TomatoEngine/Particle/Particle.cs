@@ -22,6 +22,7 @@ namespace TomatoEngine.Particle
             EnablePhysics(true);
             SetStaticObject(false);
             EnableAirResistance(false);
+            SetIsParticle(true);
             HasMass(false);
             float xAdd = (float)Math.Sin((double)-GetRotation());
             float yAdd = (float)Math.Cos((double)-GetRotation());

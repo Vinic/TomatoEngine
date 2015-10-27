@@ -53,7 +53,7 @@ namespace TomatoEngine.SpaceGame
             SetVelocity(vel);
             SetRotationVelocity(rotV);
             base.Update(settings);
-            engineFirePar.SetPos(Helpers.Helpers.OffsetPosition(GetPosition(), 1.6f, GetRotation() + (float)Math.PI * 1.5f));
+            engineFirePar.SetPos(Helpers.Helpers.OffsetPosition(GetPosition(), 1.0f, GetRotation() + (float)Math.PI * 1.5f));
             engineFirePar.SetRot(GetRotation() + 3.14f);
             CamController.SetPos(GetPosition());
         }

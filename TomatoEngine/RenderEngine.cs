@@ -62,7 +62,7 @@ namespace TomatoEngine
             float xp, yp;
             float max = (float)(Math.PI * 2);
             gl.Vertex(x, y);
-            for (float i = 0f; i < max; i = i + 0.01f)
+            for (float i = 0f; i < max; i = i + 0.1f)
             {
                 xp = x + ((float)Math.Cos(i) * s);
                 yp = y + ((float)Math.Sin(i) * s);
@@ -97,6 +97,18 @@ namespace TomatoEngine
         {
             x = xVal;
             y = yVal;
+        }
+        public void Reset()
+        {
+            x = 0;
+            y = 0;
+        }
+        public bool HasValue()
+        {
+            if(x != 0 || y != 0){
+                return true;
+            }
+            return false;
         }
     }
     public enum RenderMode

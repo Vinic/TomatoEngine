@@ -75,6 +75,8 @@ namespace TomatoEngine
                 PhysLoad.Maximum = PhysEngine.PhysInteractions;
             }
             PhysLoad.Value = PhysEngine.PhysInteractions;
+            DrawTimeText.Text = "Draw time: " + _engine.DrawTime + "ms";
+            UpdateTimeText.Text = "Update time: " + _engine.UpdateTime + "ms";
         }
 
         private void ResetButton_Click(object sender, EventArgs e)

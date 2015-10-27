@@ -18,7 +18,8 @@ namespace TomatoEngine
             for ( int i = 0; i < 200; i++)
             {
                 var a = new SpaceGame.Asteroid();
-                a.SetPos(r.Next(-200, 200), r.Next(-200, 200));
+                a.SetPos(r.Next(-100, 100), r.Next(-100, 100));
+                a.SetRotation((float)r.Next(100) / 50);
                 TomatoMainEngine.AddGameObject(a);
             }
             

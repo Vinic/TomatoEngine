@@ -10,6 +10,7 @@ namespace TomatoEngine
     {
         public static int PhysInteractions = 0;
         private static List<RenderObject> _tempList = new List<RenderObject>();
+        private static PointFloat _pointFloat = new PointFloat(0,0);
         //handles collision
         public static void Collide(RenderObject physObject1, RenderObject physObject2)
         {
@@ -53,12 +54,10 @@ namespace TomatoEngine
             float physSize = physObject.GetPhysSize();
             foreach (RenderObject obj in TomatoMainEngine.GameObjects)
             {
-                if (obj.HasPhysics() && obj != physObject)
+                if ( obj.HasPhysics() && obj != physObject && !( obj.IsParticle () && obj.Type == physObject.Type) )
                 {
                     PointFloat objPos = obj.GetPosition();
-                    float gemX = Math.Abs(objPos.x - physPos.x);
-                    float gemY = Math.Abs(objPos.y - physPos.y);
-                    float fDistance = gemX + gemY;
+                    float fDistance = Math.Abs(objPos.x - physPos.x) +  Math.Abs(objPos.y - physPos.y);
                     fDistance = (float)(Math.Pow(physPos.x-objPos.x, 2) + Math.Pow(physPos.y-objPos.y, 2));
                     if (fDistance < physSize + obj.GetPhysSize())
                     {
@@ -110,7 +109,9 @@ namespace TomatoEngine
 
         private static PointFloat GetDirection(float deg)
         {
-            return new PointFloat( (float)Math.Cos(deg) , (float)Math.Sin(deg) );
+            _pointFloat.x = (float)Math.Cos(deg);
+            _pointFloat.y = (float)Math.Sin(deg);
+            return _pointFloat;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace TomatoEngine
         private bool _airResistance = false;
         private float _physSize = 1f;
         private bool _hasMass = true;
+        private bool _isParticle = false;
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
@@ -160,8 +161,16 @@ namespace TomatoEngine
         {
             _airResistance = on;
         }
+        public void SetIsParticle(bool on)
+        {
+            _isParticle = on;
+        }
+        public bool IsParticle()
+        {
+            return _isParticle;
+        }
         public virtual void Update(GameSettings settings){
-            if(!_staticPosition){
+            if(!_staticPosition && (_vel.HasValue() || _rotV != 0)){
                 if(_airResistance){
                     _vel.x = _vel.x - (_vel.x / 40);
                     _vel.y = _vel.y - (_vel.y / 40);
@@ -170,7 +179,7 @@ namespace TomatoEngine
                 SetPosAdd(_vel);
                 SetRotationAdd(_rotV);
             }
-            if (_physics && PhysEngine.IsOverlappingInCircle(this))
+            if ( _physics && _vel.HasValue() && PhysEngine.IsOverlappingInCircle(this) )
             {
                 List<RenderObject> collisions = PhysEngine.GetAllOverlappingInCircle(this);
                 PhysEngine.HandleAllObjects(this, collisions);

@@ -36,6 +36,8 @@
             this.ResetButton = new System.Windows.Forms.Button();
             this.PhysLoad = new System.Windows.Forms.ProgressBar();
             this.progressbartext = new System.Windows.Forms.Label();
+            this.DrawTimeText = new System.Windows.Forms.Label();
+            this.UpdateTimeText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TextOutput
@@ -86,6 +88,7 @@
             // PhysLoad
             // 
             this.PhysLoad.Location = new System.Drawing.Point(282, 226);
+            this.PhysLoad.Maximum = 1;
             this.PhysLoad.Name = "PhysLoad";
             this.PhysLoad.Size = new System.Drawing.Size(358, 23);
             this.PhysLoad.TabIndex = 4;
@@ -99,12 +102,32 @@
             this.progressbartext.TabIndex = 5;
             this.progressbartext.Text = "Physic engine activity";
             // 
+            // DrawTimeText
+            // 
+            this.DrawTimeText.AutoSize = true;
+            this.DrawTimeText.Location = new System.Drawing.Point(279, 71);
+            this.DrawTimeText.Name = "DrawTimeText";
+            this.DrawTimeText.Size = new System.Drawing.Size(64, 13);
+            this.DrawTimeText.TabIndex = 6;
+            this.DrawTimeText.Text = "Draw Time: ";
+            // 
+            // UpdateTimeText
+            // 
+            this.UpdateTimeText.AutoSize = true;
+            this.UpdateTimeText.Location = new System.Drawing.Point(279, 88);
+            this.UpdateTimeText.Name = "UpdateTimeText";
+            this.UpdateTimeText.Size = new System.Drawing.Size(74, 13);
+            this.UpdateTimeText.TabIndex = 7;
+            this.UpdateTimeText.Text = "Update Time: ";
+            // 
             // DebugTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 261);
             this.ControlBox = false;
+            this.Controls.Add(this.UpdateTimeText);
+            this.Controls.Add(this.DrawTimeText);
             this.Controls.Add(this.progressbartext);
             this.Controls.Add(this.PhysLoad);
             this.Controls.Add(this.ResetButton);
@@ -133,5 +156,7 @@
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.ProgressBar PhysLoad;
         private System.Windows.Forms.Label progressbartext;
+        private System.Windows.Forms.Label DrawTimeText;
+        private System.Windows.Forms.Label UpdateTimeText;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace TomatoEngine
 {
@@ -18,6 +19,10 @@ namespace TomatoEngine
         private static List<RenderObject> toAdd = new List<RenderObject>();
         public static DebugTools DebugTools;
         public bool Paused = false;
+        private Stopwatch _starDrawTime = new Stopwatch();
+        private Stopwatch _starUpdateTime = new Stopwatch();
+        public int UpdateTime = 0;
+        public int DrawTime = 0;
         public TomatoMainEngine()
         {
             DebugTools = new DebugTools(this);
@@ -54,6 +59,8 @@ namespace TomatoEngine
 
         public void Update()
         {
+            _starUpdateTime.Reset();
+            _starUpdateTime.Start();
             PhysEngine.PhysInteractions = 0;
             try { 
                 if(!StartupComplete){
@@ -84,11 +91,15 @@ namespace TomatoEngine
             {
                 DebugTools.LogError(error);
             }
+            _starUpdateTime.Stop();
+            UpdateTime = (int)_starUpdateTime.ElapsedMilliseconds;
         }
 
 
         public void Draw(OpenGL gl)
         {
+            _starDrawTime.Reset();
+            _starDrawTime.Start();
             try
             {
                 if (StartupComplete)
@@ -106,7 +117,8 @@ namespace TomatoEngine
             catch(Exception error){
                 DebugTools.LogError(error);
             }
-            
+            _starDrawTime.Stop();
+            DrawTime = (int)_starDrawTime.ElapsedMilliseconds;
         }
 
         public void Resized(OpenGL gl, double aspect){
