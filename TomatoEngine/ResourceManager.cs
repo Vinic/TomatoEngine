@@ -44,10 +44,10 @@ namespace TomatoEngine
         }
 
         public void InitTextures(OpenGL gl){
+            gl.GenerateMipmapEXT(OpenGL.GL_TEXTURE_2D);
             foreach(ImageTexture tex in _textures){
                 tex.InitTexture(gl);
             }
-            gl.GenerateMipmapEXT(OpenGL.GL_TEXTURE_2D);
         }
 
         public static ImageTexture GetTexture(string name)
