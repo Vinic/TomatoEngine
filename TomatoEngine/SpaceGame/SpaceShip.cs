@@ -7,8 +7,6 @@ namespace TomatoEngine.SpaceGame
 {
     public class SpaceShip : RenderObject
     {
-        private float _rotV;
-        private PointFloat _vel = new PointFloat(0,0);
         private Particle.ParticleSystem engineFirePar = new Particle.ParticleSystem("engineFire");
         public SpaceShip() : base()
         {
@@ -16,53 +14,55 @@ namespace TomatoEngine.SpaceGame
             SetTexture(ResourceManager.GetTexture("spaceShip"));
             engineFirePar.SetLifeTime(10, 50);
             engineFirePar.SetRandomSpeed(true, 0.1f);
+            EnablePhysics(true);
+            SetStaticObject(false);
         }
 
         public override void Update(GameSettings settings)
         {
-            base.Update(settings);
-            _vel.x = _vel.x - ( _vel.x / 10 );
-            _vel.y = _vel.y - ( _vel.y / 10 );
-            _rotV = _rotV - ( _rotV / 10 );
+            
+            PointFloat vel = GetVelocity();
+            float rotV = GetRotationVelocity();
+            rotV = rotV - ( rotV / 10 );
             if ( ControlKeys.IsKeyDown("s") )
             {
-                MoveBackward();
+                vel = MoveBackward(vel);
             }
             if(ControlKeys.IsKeyDown("w")){
-                MoveForward();
+                vel = MoveForward(vel);
                 //Console.WriteLine(GetPosition().x + " " + GetPosition().y);
             }
 
             if ( ControlKeys.IsKeyDown("d") )
             {
-                _rotV = _rotV + (-0.1f - _rotV);
+                rotV = rotV + (-0.1f - rotV);
             }
             if ( ControlKeys.IsKeyDown("a") )
             {
-                _rotV = _rotV + ( 0.1f - _rotV );
+                rotV = rotV + ( 0.1f - rotV );
             }
-
-            SetPosAdd(_vel);
-            SetRotAdd(_rotV);
+            SetVelocity(vel);
+            SetRotationVelocity(rotV);
+            base.Update(settings);
             engineFirePar.SetPos(GetPosition());
             engineFirePar.SetRot(GetRotation() + 3.14f);
         }
-        private void MoveForward()
+        private PointFloat MoveForward(PointFloat vel)
         {
             float xAdd = (float)Math.Sin((double)-GetRotation());
             float yAdd = (float)Math.Cos((double)-GetRotation());
-            _vel.x = _vel.x + ( xAdd - _vel.x )/30;
-            _vel.y = _vel.y + ( yAdd - _vel.y )/30;
+            vel.x = vel.x + ( xAdd - vel.x )/100;
+            vel.y = vel.y + ( yAdd - vel.y )/100;
             engineFirePar.Blow(0.4f, 10);
-            
+            return vel;
         }
-        private void MoveBackward()
+        private PointFloat MoveBackward(PointFloat vel)
         {
             float xAdd = (float)Math.Sin((double)-GetRotation());
             float yAdd = (float)Math.Cos((double)-GetRotation());
-            _vel.x = _vel.x + ( -xAdd - _vel.x )/30;
-            _vel.y = _vel.y + ( -yAdd - _vel.y )/30;
-
+            vel.x = vel.x + ( -xAdd - vel.x )/100;
+            vel.y = vel.y + ( -yAdd - vel.y )/100;
+            return vel;
         }
 
     }

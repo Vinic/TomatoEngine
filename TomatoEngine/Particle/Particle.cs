@@ -15,14 +15,16 @@ namespace TomatoEngine.Particle
             SetSize(sizex,sizey);
             SetTexture(texture);
             _lifeTime = lifetime;
-            SetRot(_rotation);
+            SetRotation(_rotation);
             SetPos(x,y);
             _speed = speed;
+            EnablePhysics(true);
+            EnableAirResistance(true);
         }
 
         public override void Update(GameSettings settings)
         {
-            base.Update(settings);
+            
             float xAdd = (float)Math.Sin((double)-GetRotation());
             float yAdd = (float)Math.Cos((double)-GetRotation());
             SetPosAdd(xAdd * _speed, yAdd * _speed);
@@ -31,6 +33,7 @@ namespace TomatoEngine.Particle
                 _lifeTime = 0;
                 TomatoMainEngine.RemoveRenderObject(EntityId);
             }
+            base.Update(settings);
         }
     }
 }

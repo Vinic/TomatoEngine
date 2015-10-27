@@ -9,13 +9,14 @@ namespace TomatoEngine
     public class RenderObject
     {
         public bool RenderOuterScreen = false;
-        private float _rot;
-        private PointFloat _pos = new PointFloat(0,0), _size = new PointFloat(1,1);
+        private float _rot, _rotV;
+        private PointFloat _pos = new PointFloat(0,0), _size = new PointFloat(1,1), _vel = new PointFloat(0.0f,0.0f);
         private ImageTexture _texture = ResourceManager.GetTexture("test");
         public int EntityId;
         public string Type = "DefaultObject";
         private bool _physics = false;
         private bool _staticPosition = true;
+        private bool _airResictance = false;
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
@@ -54,11 +55,11 @@ namespace TomatoEngine
                 _texture = texture;
             }
         }
-        public void SetRot(float rot)
+        public void SetRotation(float rot)
         {
             _rot = rot;
         }
-        public void SetRotAdd(float add)
+        public void SetRotationAdd(float add)
         {
             _rot = _rot + add;
         }
@@ -89,7 +90,60 @@ namespace TomatoEngine
         public float GetRotation(){
             return _rot;
         }
+        public PointFloat GetVelocity(){
+            return _vel;
+        }
+        public float GetRotationVelocity()
+        {
+            return _rotV;
+        }
+        public void SetVelocity(PointFloat velocity)
+        {
+            _vel.x = velocity.x;
+            _vel.y = velocity.y;
+        }
+        public void SetVelocity(float velX, float velY)
+        {
+            _vel.x = velX;
+            _vel.y = velY;
+        }
+        public void SetVelocityAdd(PointFloat velocity)
+        {
+            _vel.x = _vel.x + velocity.x;
+            _vel.y = _vel.y + velocity.y;
+        }
+        public void SetVelocityAdd(float velX, float velY)
+        {
+            _vel.x = _vel.x + velX;
+            _vel.y = _vel.y + velY;
+        }
+        public void SetRotationVelocity(float rotVelocity)
+        {
+            _rotV = rotVelocity;
+        }
+        public void EnablePhysics(bool on)
+        {
+            _physics = on;
+        }
+        public void SetStaticObject(bool on)
+        {
+            _staticPosition = on;
+        }
+        public void EnableAirResistance(bool on)
+        {
+            _airResictance = on;
+        }
         public virtual void Update(GameSettings settings){
+            if(!_staticPosition){
+                if(_airResictance){
+                    _vel.x = _vel.x - (_vel.x / 40);
+                    _vel.y = _vel.y - (_vel.y / 40);
+                    _rotV = _rotV - (_rotV / 40);
+                }
+                SetPosAdd(_vel);
+                SetRotationAdd(_rotV);
+            }
+            
             
         }
 

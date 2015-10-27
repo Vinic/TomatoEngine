@@ -13,6 +13,8 @@ namespace TomatoEngine.SpaceGame
         {
             Type = "SpaceGame.Asteroid";
             SetTexture(ResourceManager.GetTexture("asteroid"));
+            EnablePhysics(true);
+            EnableAirResistance(true);
         }
 
         public override void Update(GameSettings settings)
@@ -23,7 +25,7 @@ namespace TomatoEngine.SpaceGame
             _rotV = _rotV - (_rotV / 10);
 
             SetPosAdd(_vel);
-            SetRotAdd(_rotV);
+            SetRotationAdd(_rotV);
         }
     }
 }
