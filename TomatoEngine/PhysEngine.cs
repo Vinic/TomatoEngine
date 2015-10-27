@@ -15,16 +15,18 @@ namespace TomatoEngine
         //is colliding
         public static bool IsOverlappingInCircle(RenderObject physObject)
         {
+            PointFloat physPos = physObject.GetPosition();
             foreach (RenderObject obj in TomatoMainEngine.GameObjects)
             {
-                if(obj != physObject) {
-                    float gemX = Math.Abs(obj.GetPosition().x - physObject.GetPosition().x);
-                    float gemY = Math.Abs(obj.GetPosition().y - physObject.GetPosition().y);
+                if(obj.HasPhysics() && obj != physObject) {
+                    PointFloat objPos = obj.GetPosition();
+                    float gemX = Math.Abs(objPos.x - physPos.x);
+                    float gemY = Math.Abs(objPos.y - physPos.y);
                     //Console.WriteLine("X: " + gemX + " " + "Y: " + gemY);
 
-                    float fDistance = (gemX + gemY) / 2;
-
-                    if (fDistance < physObject.GetSize())
+                    float fDistance = gemX + gemY - obj.GetSize();
+                    var s = physObject.GetSize();
+                    if (fDistance < s)
                     {
                         return true;
                     }

@@ -133,6 +133,14 @@ namespace TomatoEngine
         {
             _staticPosition = on;
         }
+        public bool IsStaticObject()
+        {
+            return _staticPosition;
+        }
+        public bool HasPhysics()
+        {
+            return _physics;
+        }
         public void EnableAirResistance(bool on)
         {
             _airResictance = on;

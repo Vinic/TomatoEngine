@@ -15,6 +15,7 @@ namespace TomatoEngine.SpaceGame
             SetTexture(ResourceManager.GetTexture("asteroid"));
             EnablePhysics(true);
             EnableAirResistance(true);
+            SetSize(2.0f,2.0f);
         }
 
         public override void Update(GameSettings settings)

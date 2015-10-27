@@ -12,7 +12,7 @@ namespace TomatoEngine.SpaceGame
         {
             Type = "SpaceGame.SpaceShip";
             SetTexture(ResourceManager.GetTexture("spaceShip"));
-            engineFirePar.SetLifeTime(10, 50);
+            engineFirePar.SetLifeTime(3, 10);
             engineFirePar.SetRandomSpeed(true, 0.1f);
             EnablePhysics(true);
             SetStaticObject(false);

@@ -18,7 +18,7 @@ namespace TomatoEngine.Particle
             SetRotation(_rotation);
             SetPos(x,y);
             _speed = speed;
-            EnablePhysics(true);
+            EnablePhysics(false);
             EnableAirResistance(true);
         }
 

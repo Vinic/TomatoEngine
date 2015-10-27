@@ -14,7 +14,9 @@ namespace TomatoEngine
             //TomatoMainEngine.GameObjects.Add(background);
             //add a space ship
             TomatoMainEngine.GameObjects.Add(new SpaceGame.SpaceShip());
-            TomatoMainEngine.AddGameObject(new SpaceGame.Asteroid());
+            var a = new SpaceGame.Asteroid();
+            a.SetPos(4, 4);
+            TomatoMainEngine.AddGameObject(a);
         }
     }
 }
