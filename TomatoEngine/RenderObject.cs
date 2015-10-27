@@ -16,7 +16,7 @@ namespace TomatoEngine
         public string Type = "DefaultObject";
         private bool _physics = false;
         private bool _staticPosition = true;
-        private bool _airResictance = false;
+        private bool _airResistance = false;
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
@@ -143,11 +143,11 @@ namespace TomatoEngine
         }
         public void EnableAirResistance(bool on)
         {
-            _airResictance = on;
+            _airResistance = on;
         }
         public virtual void Update(GameSettings settings){
             if(!_staticPosition){
-                if(_airResictance){
+                if(_airResistance){
                     _vel.x = _vel.x - (_vel.x / 40);
                     _vel.y = _vel.y - (_vel.y / 40);
                     _rotV = _rotV - (_rotV / 40);
