@@ -70,6 +70,17 @@ namespace TomatoEngine
         private void UpdateInfoTimer_Tick(object sender, EventArgs e)
         {
             ObjectsAmountText.Text = "Active objects count: " + TomatoMainEngine.GameObjects.Count;
+            if ( PhysLoad.Maximum < PhysEngine.PhysInteractions )
+            {
+                PhysLoad.Maximum = PhysEngine.PhysInteractions;
+            }
+            PhysLoad.Value = PhysEngine.PhysInteractions;
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            TomatoMainEngine.GameObjects.Clear();
+            Levels.SpaceTest(_engine);
         }
     }
 }

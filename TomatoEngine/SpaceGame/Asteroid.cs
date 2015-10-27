@@ -8,15 +8,16 @@ namespace TomatoEngine.SpaceGame
     class Asteroid : RenderObject
     {
         private float _rotV;
-        private PointFloat _vel = new PointFloat(1, 0);
+        private PointFloat _vel = new PointFloat(0, 0);
         public Asteroid() : base()
         {
             Type = "SpaceGame.Asteroid";
             SetTexture(ResourceManager.GetTexture("asteroid"));
             EnablePhysics(true);
-            EnableAirResistance(true);
+            EnableAirResistance(false);
             SetStaticObject(false);
             SetSize(2.0f,2.0f);
+            SetPhysSize(1.0f);
         }
 
         public override void Update(GameSettings settings)

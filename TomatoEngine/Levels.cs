@@ -14,12 +14,14 @@ namespace TomatoEngine
             //TomatoMainEngine.GameObjects.Add(background);
             //add a space ship
             TomatoMainEngine.GameObjects.Add(new SpaceGame.SpaceShip());
-            var a = new SpaceGame.Asteroid();
-            a.SetPos(4, 4);
-            TomatoMainEngine.AddGameObject(a);
-            a = new SpaceGame.Asteroid();
-            a.SetPos(1, 4);
-            TomatoMainEngine.AddGameObject(a);
+            Random r = new Random();
+            for ( int i = 0; i < 200; i++)
+            {
+                var a = new SpaceGame.Asteroid();
+                a.SetPos(r.Next(-200, 200), r.Next(-200, 200));
+                TomatoMainEngine.AddGameObject(a);
+            }
+            
         }
     }
 }

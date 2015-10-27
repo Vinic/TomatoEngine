@@ -16,5 +16,11 @@ namespace TomatoEngine
             gl.Perspective(60.0f, Aspect, 0.01, 100.0);
             gl.LookAt(X, Y, 30, X, Y, 0, 0, 1, 0);
         }
+
+        public static void SetPos(PointFloat pos)
+        {
+            X = pos.x;
+            Y = pos.y;
+        }
     }
 }

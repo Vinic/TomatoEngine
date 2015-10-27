@@ -54,6 +54,7 @@ namespace TomatoEngine
 
         public void Update()
         {
+            PhysEngine.PhysInteractions = 0;
             try { 
                 if(!StartupComplete){
                     return;

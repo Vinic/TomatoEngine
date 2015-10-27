@@ -33,6 +33,9 @@
             this.Pause_Toggle = new System.Windows.Forms.CheckBox();
             this.ObjectsAmountText = new System.Windows.Forms.Label();
             this.UpdateInfoTimer = new System.Windows.Forms.Timer(this.components);
+            this.ResetButton = new System.Windows.Forms.Button();
+            this.PhysLoad = new System.Windows.Forms.ProgressBar();
+            this.progressbartext = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TextOutput
@@ -59,7 +62,7 @@
             // ObjectsAmountText
             // 
             this.ObjectsAmountText.AutoSize = true;
-            this.ObjectsAmountText.Location = new System.Drawing.Point(279, 236);
+            this.ObjectsAmountText.Location = new System.Drawing.Point(279, 168);
             this.ObjectsAmountText.Name = "ObjectsAmountText";
             this.ObjectsAmountText.Size = new System.Drawing.Size(29, 13);
             this.ObjectsAmountText.TabIndex = 2;
@@ -67,15 +70,44 @@
             // 
             // UpdateInfoTimer
             // 
-            this.UpdateInfoTimer.Interval = 500;
+            this.UpdateInfoTimer.Interval = 20;
             this.UpdateInfoTimer.Tick += new System.EventHandler(this.UpdateInfoTimer_Tick);
+            // 
+            // ResetButton
+            // 
+            this.ResetButton.Location = new System.Drawing.Point(282, 41);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(44, 23);
+            this.ResetButton.TabIndex = 3;
+            this.ResetButton.Text = "Reset";
+            this.ResetButton.UseVisualStyleBackColor = true;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // PhysLoad
+            // 
+            this.PhysLoad.Location = new System.Drawing.Point(282, 226);
+            this.PhysLoad.Name = "PhysLoad";
+            this.PhysLoad.Size = new System.Drawing.Size(358, 23);
+            this.PhysLoad.TabIndex = 4;
+            // 
+            // progressbartext
+            // 
+            this.progressbartext.AutoSize = true;
+            this.progressbartext.Location = new System.Drawing.Point(282, 207);
+            this.progressbartext.Name = "progressbartext";
+            this.progressbartext.Size = new System.Drawing.Size(109, 13);
+            this.progressbartext.TabIndex = 5;
+            this.progressbartext.Text = "Physic engine activity";
             // 
             // DebugTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 261);
+            this.ClientSize = new System.Drawing.Size(652, 261);
             this.ControlBox = false;
+            this.Controls.Add(this.progressbartext);
+            this.Controls.Add(this.PhysLoad);
+            this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.ObjectsAmountText);
             this.Controls.Add(this.Pause_Toggle);
             this.Controls.Add(this.TextOutput);
@@ -98,5 +130,8 @@
         private System.Windows.Forms.CheckBox Pause_Toggle;
         private System.Windows.Forms.Label ObjectsAmountText;
         private System.Windows.Forms.Timer UpdateInfoTimer;
+        private System.Windows.Forms.Button ResetButton;
+        private System.Windows.Forms.ProgressBar PhysLoad;
+        private System.Windows.Forms.Label progressbartext;
     }
 }

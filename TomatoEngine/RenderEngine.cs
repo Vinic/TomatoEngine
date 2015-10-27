@@ -22,13 +22,23 @@ namespace TomatoEngine
             {
                 
                 foreach(RenderObject obj in objects){
-                    gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
-                    obj.DrawWireFrame(gl);
-                    if (_mode == RenderMode.Hitboxes)
-                    {
-                        DrawCircle(gl, obj.GetPosition().x, obj.GetPosition().y, obj.GetSize());
-                    }
                     obj.Draw(gl);
+                    gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
+                    
+                    if ( _mode == RenderMode.Hitboxes)
+                    {
+                        if ( obj.Type != "Particle.Particle" )
+                        {
+                            DrawCircle(gl, obj.GetPosition().x, obj.GetPosition().y, obj.GetPhysSize());
+                        }
+                        obj.DrawVelocity(gl);
+                    }
+                    else
+                    {
+                        obj.DrawWireFrame(gl);
+                    }
+                    
+                    
                 }
             }
             else 
@@ -51,12 +61,15 @@ namespace TomatoEngine
             gl.Color(1f, 1f, 1f);
             float xp, yp;
             float max = (float)(Math.PI * 2);
-            for (float i = 0f; i > max; i++)
+            gl.Vertex(x, y);
+            for (float i = 0f; i < max; i = i + 0.01f)
             {
-                xp = x + (float)Math.Cos(i);
-                yp = y + (float)Math.Sin(i);
+                xp = x + ((float)Math.Cos(i) * s);
+                yp = y + ((float)Math.Sin(i) * s);
                 gl.Vertex(xp,yp);
+                gl.Vertex(xp, yp);
             }
+            gl.Vertex(x, y);
             gl.End();
         }
     }

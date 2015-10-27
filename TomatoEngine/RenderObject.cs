@@ -17,6 +17,8 @@ namespace TomatoEngine
         private bool _physics = false;
         private bool _staticPosition = true;
         private bool _airResistance = false;
+        private float _physSize = 1f;
+        private bool _hasMass = true;
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
@@ -29,6 +31,7 @@ namespace TomatoEngine
             _pos.y = y;
             _size.x = sx;
             _size.y = sy;
+            _physSize = ( _size.x + _size.y ) / 2;
         }
 
         public void SetTexture(string name, OpenGL gl)
@@ -49,9 +52,21 @@ namespace TomatoEngine
             _size.x = sx;
             _size.y = sy;
         }
-        public float GetSize()
+        public float GetPhysSize()
         {
-            return (_size.x + _size.y) / 2;
+            return _physSize;
+        }
+        public void SetPhysSize(float size)
+        {
+            _physSize = size;
+        }
+        public bool HasMass()
+        {
+            return _hasMass;
+        }
+        public void HasMass(bool yes)
+        {
+           _hasMass = yes;
         }
         public void SetTexture(ImageTexture texture)
         {
@@ -164,7 +179,7 @@ namespace TomatoEngine
         }
 
 
-        public void Draw(OpenGL gl)
+        public virtual void Draw(OpenGL gl)
         {
             PointFloat[] pointData = RenderLogics.RectPoint(_pos, _size,_rot);
             _texture.UseTexure(gl);
@@ -180,7 +195,7 @@ namespace TomatoEngine
                 gl.Vertex(pointData[2].x, pointData[2].y);
             gl.End();
         }
-        public void DrawWireFrame(OpenGL gl)
+        public virtual void DrawWireFrame(OpenGL gl)
         {
             PointFloat[] pointData = RenderLogics.RectPoint(_pos, _size, _rot);
             gl.Begin(OpenGL.GL_LINES);
@@ -193,6 +208,14 @@ namespace TomatoEngine
             gl.Vertex(pointData[2].x, pointData[2].y);
             gl.Vertex(pointData[2].x, pointData[2].y);
             gl.Vertex(pointData[1].x, pointData[1].y);
+            gl.End();
+        }
+        public virtual void DrawVelocity(OpenGL gl)
+        {
+            gl.Begin(OpenGL.GL_LINES);
+            gl.Color(0f, 1f, 1f);
+            gl.Vertex(_pos.x, _pos.y);
+            gl.Vertex(_pos.x + _vel.x * 10f, _pos.y + _vel.y * 10f);
             gl.End();
         }
     }

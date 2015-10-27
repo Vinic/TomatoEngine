@@ -37,6 +37,7 @@ namespace TomatoEngine
                 if (down == k)
                 {
                     isDown = true;
+                    
                 }
             }
             return isDown;
