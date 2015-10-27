@@ -49,6 +49,10 @@ namespace TomatoEngine
             _size.x = sx;
             _size.y = sy;
         }
+        public float GetSize()
+        {
+            return (_size.x + _size.y) / 2;
+        }
         public void SetTexture(ImageTexture texture)
         {
             if(texture != null){
