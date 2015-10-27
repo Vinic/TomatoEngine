@@ -128,14 +128,14 @@ namespace TomatoEngine
 
         public void KeyDown(Keys key)
         {
-            if ( key != Keys.F1 && key != Keys.F2 && key != Keys.F12)
+            if (key != Keys.F1 && key != Keys.F2 && key != Keys.F3 && key != Keys.F12)
             {
                 ControlKeys.KeyDown(key);
             }
         }
         public void KeyUp(Keys key)
         {
-            if (key != Keys.F1 && key != Keys.F2 && key != Keys.F12)
+            if (key != Keys.F1 && key != Keys.F2 && key != Keys.F3 && key != Keys.F12)
             {
                 ControlKeys.KeyUp(key);
             }
@@ -159,8 +159,13 @@ namespace TomatoEngine
                 {
                     DebugTools.Hide();
                 }
-                
 
+
+            }
+            else if (key == Keys.F3)
+            {
+                renderEngine.SetRenderMode(RenderMode.Hitboxes);
+                DebugTools.LogToConsole("RenderMode: Hitboxes");
             }
             
         }

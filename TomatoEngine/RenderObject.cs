@@ -157,7 +157,8 @@ namespace TomatoEngine
             }
             if (_physics && PhysEngine.IsOverlappingInCircle(this))
             {
-                Console.WriteLine("HIT!");
+                List<RenderObject> collisions = PhysEngine.GetAllOverlappingInCircle(this);
+                PhysEngine.HandleAllObjects(this, collisions);
             }
             
         }

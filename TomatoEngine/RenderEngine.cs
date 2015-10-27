@@ -18,11 +18,16 @@ namespace TomatoEngine
             gl.LoadIdentity();
             CamController.SetCam(gl);
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
-            if(_mode == RenderMode.WireFrame){
+            if (_mode == RenderMode.WireFrame || _mode == RenderMode.Hitboxes)
+            {
                 
                 foreach(RenderObject obj in objects){
                     gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
                     obj.DrawWireFrame(gl);
+                    if (_mode == RenderMode.Hitboxes)
+                    {
+                        DrawCircle(gl, obj.GetPosition().x, obj.GetPosition().y, obj.GetSize());
+                    }
                     obj.Draw(gl);
                 }
             }
@@ -37,6 +42,22 @@ namespace TomatoEngine
         public void SetRenderMode(RenderMode mode)
         {
             _mode = mode;
+        }
+
+        public void DrawCircle(OpenGL gl, float x, float y, float s)
+        {
+
+            gl.Begin(OpenGL.GL_LINES);
+            gl.Color(1f, 1f, 1f);
+            float xp, yp;
+            float max = (float)(Math.PI * 2);
+            for (float i = 0f; i > max; i++)
+            {
+                xp = x + (float)Math.Cos(i);
+                yp = y + (float)Math.Sin(i);
+                gl.Vertex(xp,yp);
+            }
+            gl.End();
         }
     }
 
@@ -69,6 +90,6 @@ namespace TomatoEngine
     {
         Normal = 1,
         WireFrame = 2,
-        NoTextures = 3
+        Hitboxes = 3
     }
 }
