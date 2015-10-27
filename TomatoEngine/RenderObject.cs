@@ -147,7 +147,10 @@ namespace TomatoEngine
                 SetPosAdd(_vel);
                 SetRotationAdd(_rotV);
             }
-            
+            if (_physics && PhysEngine.IsOverlappingInCircle(this))
+            {
+                Console.WriteLine("HIT!");
+            }
             
         }
 
