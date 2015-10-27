@@ -5,33 +5,24 @@ using System.Text;
 
 namespace TomatoEngine
 {
-    class PhysEngine
+    public static class PhysEngine
     {
-        private RenderObject _ApplyGrav, _Phys;
-        public PhysEngine(RenderObject ApplyGrav)
-        {
-            _ApplyGrav = ApplyGrav;
-            //_Phys = Phys;
-        }
-
+        //handles collision
         public static void Collide(RenderObject Phys, RenderObject Phys2)
         {
             //Phys.RenderOuterScreen = true;
             //Phys2.RenderOuterScreen = true;
             //Console.WriteLine("Hit!");
         }
-    }
-
-    class PhysHandler : RenderObject
-    {
-        private int[] _colzone;
-        
-        public PhysHandler()
+        //is colliding
+        public static bool IsOverlappingInCircle(RenderObject physObject)
         {
-            _colzone = new int[]
-            { };
-        }
-
-        
+            
+            //
+            return false;
+            //Phys.RenderOuterScreen = true;
+            //Phys2.RenderOuterScreen = true;
+            //Console.WriteLine("Hit!");
+        } 
     }
 }

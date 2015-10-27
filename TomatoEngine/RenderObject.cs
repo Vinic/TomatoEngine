@@ -14,6 +14,8 @@ namespace TomatoEngine
         private ImageTexture _texture = ResourceManager.GetTexture("test");
         public int EntityId;
         public string Type = "DefaultObject";
+        private bool _physics = false;
+        private bool _staticPosition = true;
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
