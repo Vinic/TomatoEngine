@@ -23,18 +23,13 @@ namespace TomatoEngine
 
                 float fDistance = gemX + gemY;
 
-                //if(fDistance < physObject.)
+                if (fDistance < physObject.GetSize())
+                {
+                    return true;
+                }
             }
-     
             
-            
-            //int distance = gemX + gemY;
-            
-            //
             return false;
-            //Phys.RenderOuterScreen = true;
-            //Phys2.RenderOuterScreen = true;
-            //Console.WriteLine("Hit!");
         } 
     }
 }
