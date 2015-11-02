@@ -50,7 +50,7 @@ namespace TomatoEngine
                 DebugTools.LogToConsole("Applying Textures");
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
-                Levels.BallDemo(this);
+                Levels.SpaceTest(this);
                 StartupComplete = true;
             }catch(Exception error){
                 DebugTools.LogError(error);

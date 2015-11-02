@@ -29,17 +29,18 @@ namespace TomatoEngine
             float y = pos1.y - pos2.y;
             float h = -(float)Math.Atan2(x, y);
             PointFloat dir = GetDirection(h + (float)Math.PI / 2.0f);
-            while ( IsOverlappingInCircle(physObject1, physObject2) )
-            {
-                physObject1.SetPosAdd(dir / physObject1.GetPhysSize());
-                physObject2.SetPosAdd(dir / -physObject2.GetPhysSize());
-            }
+            //while ( IsOverlappingInCircle(physObject1, physObject2) )
+            //{
+                //physObject1.SetPosAdd(dir / 1);
+                //physObject2.SetPosAdd(dir / -1);
+            //}
             float e1 = ( Math.Abs(vel1.x) + Math.Abs(vel2.x) ) * dir.x;
             float e2 = ( Math.Abs(vel1.y)+ Math.Abs(vel2.y) ) * dir.y;
             e1 = e1 / 2;
             e2 = e2 / 2;
             if ( physObject2.HasMass()  == true )
             {
+                physObject1.SetPosAdd(vel1 / -1);
                 physObject1.SetVelocity(e1, e2);
                 physObject1.SetRotationVelocity(( (float)Math.Atan2(vel1.x + vel2.x, vel1.y + vel2.y) - (float)Math.Atan2(x, y) ) / 100f);
             }

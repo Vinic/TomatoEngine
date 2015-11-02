@@ -34,6 +34,7 @@ namespace TomatoEngine.ParticleBallDemo
                     float x = selfPos.x - objPos.x;
                     float y = selfPos.y - objPos.y;
                     float h = -(float)Math.Atan2(x, y);
+                    h = h + 0.01f;
                     _dir = _dir - Helpers.PhysicsAndPositions.GetDirection(h);
                 }
             }
@@ -41,7 +42,7 @@ namespace TomatoEngine.ParticleBallDemo
             SetVelocityAdd(_dir / 500);
             
             _fire.SetPos(GetPosition());
-            _fire.Blow(0.01f,1);
+            _fire.Blow(0.1f,4);
             base.Update(settings);
         }
     }

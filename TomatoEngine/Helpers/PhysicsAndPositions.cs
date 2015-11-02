@@ -24,7 +24,7 @@ namespace TomatoEngine.Helpers
         }
         public static float GetSpeed(PointFloat vel)
         {
-            return vel.x + vel.y;
+            return (float)Math.Pow(vel.x + vel.y,2);
         }
     }
 }
