@@ -33,24 +33,29 @@ namespace TomatoEngine
             try
             {
                 DebugTools.LogToConsole("Prepareing GL");
+                //setup open gl and activate modes
                 gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_S, OpenGL.GL_REPEAT);
                 gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_WRAP_T, OpenGL.GL_REPEAT);
                 gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MAG_FILTER, OpenGL.GL_NEAREST);
                 gl.TexParameter(OpenGL.GL_TEXTURE_2D, OpenGL.GL_TEXTURE_MIN_FILTER, OpenGL.GL_NEAREST);
-                Random r = new Random();
                 gl.Enable(OpenGL.GL_BLEND);
                 gl.Enable(OpenGL.GL_TEXTURE_2D);
                 gl.Enable(OpenGL.GL_DEPTH_TEST);
                 //gl.Enable(OpenGL.GL_LIGHTING);
                 gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
                 gl.ShadeModel(OpenGL.GL_SMOOTH);
+                //Darw the first frame with a load test
                 Draw(gl);
+
                 DebugTools.LogToConsole("Loading Resources");
+                //Loading the resources and bind to gl
                 resourceManager = new ResourceManager();
                 DebugTools.LogToConsole("Applying Textures");
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
+                //Loading level
                 Levels.SpaceTest(this);
+                //Startup is complete
                 StartupComplete = true;
             }catch(Exception error){
                 DebugTools.LogError(error);
@@ -76,7 +81,10 @@ namespace TomatoEngine
             if(toAdd.Count > 0){
                 for ( int i=0; i<toAdd.Count; i++ )
                 {
-                    GameObjects.Add(toAdd[i]);
+                    if (GameObjects.Count < 1000)
+                    {
+                        GameObjects.Add(toAdd[i]);
+                    }
                 }
                 toAdd.Clear();
             }

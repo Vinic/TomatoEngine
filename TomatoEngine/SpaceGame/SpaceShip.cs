@@ -48,8 +48,11 @@ namespace TomatoEngine.SpaceGame
             }
             if ( ControlKeys.IsKeyDown("e") )
             {
-                engineFirePar.SetLifeTime(200);
-                engineFirePar.Blow(0.1f, 1);
+
+                engineFirePar.SetLifeTime(100,200);
+                engineFirePar.SetSpread((float)Math.PI * 2);
+                engineFirePar.Blow(1f, 100);
+                engineFirePar.SetSpread(0.3f);
                 engineFirePar.SetLifeTime(3,30);
             }
             SetVelocity(vel);

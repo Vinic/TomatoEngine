@@ -17,7 +17,7 @@ namespace TomatoEngine.SpaceGame
             EnableAirResistance(false);
             SetStaticObject(false);
             SetSize(2.0f,2.0f);
-            SetPhysSize(1.0f);
+            SetPhysSize(1.5f);
         }
 
         public override void Update(GameSettings settings)

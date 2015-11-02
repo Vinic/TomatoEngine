@@ -19,7 +19,7 @@ namespace TomatoEngine
             PointFloat vel2 = physObject2.GetVelocity();
             float h1 = -(float)Math.Atan2(vel1.x, vel1.y);
             float h2 = -(float)Math.Atan2(vel2.x, vel2.y);
-            if ( h2 > h1 + _pi && h2 < h1 - _pi )
+            if ( h2 > h1 + (_pi/2.0f) && h2 < h1 - (_pi/2.0f) )
             {
                 return;
             }
@@ -69,10 +69,9 @@ namespace TomatoEngine
             float physSize = physObject.GetPhysSize();
             foreach (RenderObject obj in TomatoMainEngine.GameObjects)
             {
-                if ( obj.HasPhysics() && obj != physObject && !( obj.IsParticle () && obj.Type == physObject.Type) )
+                if (obj.HasPhysics() && !(obj.IsParticle() && obj.Type == physObject.Type) && obj != physObject)
                 {
-                    PointFloat objPos = obj.GetPosition();
-                    float fDistance = (float)(Math.Pow(physPos.x-objPos.x, 2) + Math.Pow(physPos.y-objPos.y, 2));
+                    float fDistance = (float)(Math.Pow(physPos.x - obj.GetPosition().x, 2) + Math.Pow(physPos.y - obj.GetPosition().y, 2));
                     if (fDistance < physSize + obj.GetPhysSize())
                     {
                         return true;
