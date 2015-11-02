@@ -20,9 +20,14 @@ namespace TomatoEngine
         private float _physSize = 1f;
         private bool _hasMass = true;
         private bool _isParticle = false;
+        public int Z_Index = 0;
+        private byte[] _color = new byte[3];
         public RenderObject()
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
+            _color[0] = 255;
+            _color[1] = 255;
+            _color[2] = 255;
         }
 
         public RenderObject(float x, float y, float sx, float sy)
@@ -33,6 +38,9 @@ namespace TomatoEngine
             _size.x = sx;
             _size.y = sy;
             _physSize = ( _size.x + _size.y ) / 2;
+            _color[0] = 255;
+            _color[1] = 255;
+            _color[2] = 255;
         }
 
         public void SetTexture(string name, OpenGL gl)
@@ -42,6 +50,7 @@ namespace TomatoEngine
             if(t != null){
                 _texture = t;
             }
+
         }
         public void SetSize(PointFloat size)
         {
@@ -169,6 +178,22 @@ namespace TomatoEngine
         {
             return _isParticle;
         }
+        public void SetColor(byte[] color)
+        {
+            _color[0] = color[0];
+            _color[1] = color[1];
+            _color[2] = color[2];
+        }
+        public void SetColor(byte r, byte g, byte b)
+        {
+            _color[0] = r;
+            _color[1] = g;
+            _color[2] = b;
+        }
+        public byte[] GetColor()
+        {
+            return _color;
+        }
         public virtual void Update(GameSettings settings){
             if(!_staticPosition && (_vel.HasValue() || _rotV != 0)){
                 if(_airResistance){
@@ -193,7 +218,7 @@ namespace TomatoEngine
             PointFloat[] pointData = RenderLogics.RectPoint(_pos, _size,_rot);
             _texture.UseTexure(gl);
             gl.Begin(OpenGL.GL_QUADS);
-            gl.Color(1f, 1f, 1f);
+            gl.Color(_color[0],_color[1],_color[2]);
             gl.TexCoord(0, 0);
                 gl.Vertex(pointData[1].x, pointData[1].y);
             gl.TexCoord(0, 1);

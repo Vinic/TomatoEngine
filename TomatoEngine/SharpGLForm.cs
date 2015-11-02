@@ -16,6 +16,7 @@ namespace TomatoEngine
     public partial class SharpGLForm : Form
     {
         public TomatoMainEngine engine;
+        private bool _fullscreen = false;
         /// <summary>
         /// Initializes a new instance of the <see cref="SharpGLForm"/> class.
         /// </summary>
@@ -76,6 +77,10 @@ namespace TomatoEngine
 
         private void openGLControl_KeyDown(object sender, KeyEventArgs e)
         {
+            if(e.KeyCode == Keys.F11){
+                ToggleFullScreen();
+                return;
+            }
             engine.KeyDown(e.KeyCode);
         }
 
@@ -94,5 +99,29 @@ namespace TomatoEngine
             engine.Update();
 
         }
+        private void SetFullScreen()
+        {
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+            _fullscreen = true;
+        }
+        private void SetWindowed()
+        {
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
+            this.WindowState = FormWindowState.Normal;
+            _fullscreen = false;
+        }
+        public void ToggleFullScreen()
+        {
+            if ( _fullscreen )
+            {
+                SetWindowed();
+            }
+            else
+            {
+                SetFullScreen();
+            }
+        }
+
     }
 }

@@ -19,6 +19,8 @@ namespace TomatoEngine.SpaceGame
             SetStaticObject(false);
             EnableAirResistance(true);
             SetPhysSize(0.5f);
+            //Lights.Light _light = new Lights.Light(255, 0, 255, EntityId);
+            //TomatoMainEngine.AddGameObject(_light);
         }
 
         public override void Update(GameSettings settings)
@@ -38,11 +40,11 @@ namespace TomatoEngine.SpaceGame
 
             if ( ControlKeys.IsKeyDown("d") )
             {
-                rotV = rotV + (-0.05f - rotV);
+                rotV = rotV + (0.05f - rotV);
             }
             if ( ControlKeys.IsKeyDown("a") )
             {
-                rotV = rotV + ( 0.05f - rotV );
+                rotV = rotV + ( -0.05f - rotV );
             }
             if ( ControlKeys.IsKeyDown("e") )
             {
@@ -53,14 +55,14 @@ namespace TomatoEngine.SpaceGame
             SetVelocity(vel);
             SetRotationVelocity(rotV);
             base.Update(settings);
-            engineFirePar.SetPos(Helpers.Helpers.OffsetPosition(GetPosition(), 1.0f, GetRotation() + (float)Math.PI * 1.5f));
+            engineFirePar.SetPos(Helpers.PhysicsAndPositions.OffsetPosition(GetPosition(), 1.0f, GetRotation() + (float)Math.PI * 1.5f));
             engineFirePar.SetRot(GetRotation() + 3.14f);
             CamController.SetPos(GetPosition());
         }
         private PointFloat MoveForward(PointFloat vel)
         {
-            float xAdd = (float)Math.Sin((double)-GetRotation());
-            float yAdd = (float)Math.Cos((double)-GetRotation());
+            float xAdd = (float)Math.Sin((double)GetRotation());
+            float yAdd = (float)Math.Cos((double)GetRotation());
             vel.x = vel.x + ( xAdd - vel.x )/100;
             vel.y = vel.y + ( yAdd - vel.y )/100;
             engineFirePar.Blow(0.4f, 2);
@@ -68,8 +70,8 @@ namespace TomatoEngine.SpaceGame
         }
         private PointFloat MoveBackward(PointFloat vel)
         {
-            float xAdd = (float)Math.Sin((double)-GetRotation());
-            float yAdd = (float)Math.Cos((double)-GetRotation());
+            float xAdd = (float)Math.Sin((double)GetRotation());
+            float yAdd = (float)Math.Cos((double)GetRotation());
             vel.x = vel.x + ( -xAdd - vel.x )/100;
             vel.y = vel.y + ( -yAdd - vel.y )/100;
             return vel;

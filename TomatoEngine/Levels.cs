@@ -24,5 +24,18 @@ namespace TomatoEngine
             }
             
         }
+
+        public static void BallDemo(TomatoMainEngine engine)
+        {
+            Random r = new Random();
+            for ( int i = 0; i < 3; i++ )
+            {
+                var a = new ParticleBallDemo.FlammingBall();
+                a.SetPos(r.Next(-10, 10), r.Next(-10, 10));
+                a.SetRotation((float)r.Next(100) / 50);
+                TomatoMainEngine.AddGameObject(a);
+            }
+
+        }
     }
 }

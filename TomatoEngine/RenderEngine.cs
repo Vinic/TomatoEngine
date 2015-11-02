@@ -11,7 +11,6 @@ namespace TomatoEngine
         private RenderMode _mode = RenderMode.Normal;
         public void RenderObjects(OpenGL gl, RenderObject[] objects)
         {
-            
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             gl.MatrixMode(OpenGL.GL_PROJECTION);
             //  Load the identity matrix.
@@ -48,6 +47,7 @@ namespace TomatoEngine
                     obj.Draw(gl);
                 }
             }
+            gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
         }
         public void SetRenderMode(RenderMode mode)
         {
@@ -61,12 +61,13 @@ namespace TomatoEngine
             gl.Color(1f, 1f, 1f);
             float xp, yp;
             float max = (float)(Math.PI * 2);
-            gl.Vertex(x, y);
-            for (float i = 0f; i < max; i = i + 0.1f)
+            for (float i = 0f; i < max; i = i + 0.5f)
             {
                 xp = x + ((float)Math.Cos(i) * s);
                 yp = y + ((float)Math.Sin(i) * s);
                 gl.Vertex(xp,yp);
+                xp = x + ( (float)Math.Cos(i+0.5f) * s );
+                yp = y + ( (float)Math.Sin(i+0.5f) * s );
                 gl.Vertex(xp, yp);
             }
             gl.Vertex(x, y);
@@ -78,10 +79,10 @@ namespace TomatoEngine
     {
         public static PointFloat[] RectPoint(PointFloat pos,PointFloat size, float t){
             var res = new PointFloat[4];
-            res[0] = new PointFloat(pos.x + (float)(Math.Cos(t + DegreeToRad(-45)) * size.x), pos.y + (float)(Math.Sin(t + DegreeToRad(-45)) * size.y));
-            res[1] = new PointFloat(pos.x + (float)(Math.Cos(t + DegreeToRad(45)) * size.x), pos.y + (float)(Math.Sin(t + DegreeToRad(45)) * size.y));
-            res[2] = new PointFloat(pos.x + (float)(Math.Cos(t + DegreeToRad(135)) * size.x), pos.y + (float)(Math.Sin(t + DegreeToRad(135)) * size.y));
-            res[3] = new PointFloat(pos.x + (float)(Math.Cos(t + DegreeToRad(225)) * size.x), pos.y + (float)(Math.Sin(t + DegreeToRad(225)) * size.y));
+            res[0] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(-45)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(-45)) * size.y));
+            res[1] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(45)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(45)) * size.y));
+            res[2] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(135)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(135)) * size.y));
+            res[3] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(225)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(225)) * size.y));
             return res;
         }
         public static float DegreeToRad(float r)
@@ -109,6 +110,57 @@ namespace TomatoEngine
                 return true;
             }
             return false;
+        }
+        public static PointFloat operator + (PointFloat a, PointFloat b){
+            a.x = a.x + b.x;
+            a.y = a.y + b.y;
+            return a;  
+        }
+        public static PointFloat operator -(PointFloat a, PointFloat b)
+        {
+            a.x = a.x - b.x;
+            a.y = a.y - b.y;
+            return a;
+        }
+        public static PointFloat operator *(PointFloat a, PointFloat b)
+        {
+            a.x = a.x * b.x;
+            a.y = a.y * b.y;
+            return a;
+        }
+        public static PointFloat operator /(PointFloat a, PointFloat b)
+        {
+            a.x = a.x / b.x;
+            a.y = a.y / b.y;
+            return a;
+        }
+        public static PointFloat operator +(PointFloat a, float b)
+        {
+            a.x = a.x + b;
+            a.y = a.y + b;
+            return a;
+        }
+        public static PointFloat operator -(PointFloat a, float b)
+        {
+            a.x = a.x - b;
+            a.y = a.y - b;
+            return a;
+        }
+        public static PointFloat operator *(PointFloat a, float b)
+        {
+            a.x = a.x * b;
+            a.y = a.y * b;
+            return a;
+        }
+        public static PointFloat operator /(PointFloat a, float b)
+        {
+            a.x = a.x / b;
+            a.y = a.y / b;
+            return a;
+        }
+        public float GetDirection()
+        {
+            return (float)Math.Atan2(x,y);
         }
     }
     public enum RenderMode

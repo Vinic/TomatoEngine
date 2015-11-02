@@ -41,6 +41,7 @@ namespace TomatoEngine
                 gl.Enable(OpenGL.GL_BLEND);
                 gl.Enable(OpenGL.GL_TEXTURE_2D);
                 gl.Enable(OpenGL.GL_DEPTH_TEST);
+                //gl.Enable(OpenGL.GL_LIGHTING);
                 gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
                 gl.ShadeModel(OpenGL.GL_SMOOTH);
                 Draw(gl);
@@ -49,7 +50,7 @@ namespace TomatoEngine
                 DebugTools.LogToConsole("Applying Textures");
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
-                Levels.SpaceTest(this);
+                Levels.BallDemo(this);
                 StartupComplete = true;
             }catch(Exception error){
                 DebugTools.LogError(error);
@@ -62,34 +63,34 @@ namespace TomatoEngine
             _starUpdateTime.Reset();
             _starUpdateTime.Start();
             PhysEngine.PhysInteractions = 0;
-            try { 
-                if(!StartupComplete){
-                    return;
-                }
-                if(trash.Count > 0){
-                    for ( int i=0; i<trash.Count; i++ )
-                    {
-                        GameObjects.Remove(trash[i]);
-                    }
-                    trash.Clear();
-                }
-                if(toAdd.Count > 0){
-                    for ( int i=0; i<toAdd.Count; i++ )
-                    {
-                        GameObjects.Add(toAdd[i]);
-                    }
-                    toAdd.Clear();
-                }
-                if(!Paused){
-                    foreach (RenderObject obj in GameObjects)
-                    {
-                        obj.Update(settings);
-                    }
-                }
+            if(!StartupComplete){
+                return;
             }
-            catch (Exception error)
-            {
-                DebugTools.LogError(error);
+            if(trash.Count > 0){
+                for ( int i=0; i<trash.Count; i++ )
+                {
+                    GameObjects.Remove(trash[i]);
+                }
+                trash.Clear();
+            }
+            if(toAdd.Count > 0){
+                for ( int i=0; i<toAdd.Count; i++ )
+                {
+                    GameObjects.Add(toAdd[i]);
+                }
+                toAdd.Clear();
+            }
+            GameObjects.Sort(
+                delegate(RenderObject p1, RenderObject p2)
+                {
+                    return p1.Z_Index.CompareTo(p2.Z_Index);
+                }
+            );
+            if(!Paused){
+                foreach (RenderObject obj in GameObjects)
+                {
+                    obj.Update(settings);
+                }
             }
             _starUpdateTime.Stop();
             UpdateTime = (int)_starUpdateTime.ElapsedMilliseconds;
@@ -100,22 +101,16 @@ namespace TomatoEngine
         {
             _starDrawTime.Reset();
             _starDrawTime.Start();
-            try
+            if (StartupComplete)
             {
-                if (StartupComplete)
-                {
-                    renderEngine.RenderObjects(gl, GameObjects.ToArray());
-                    if(Paused){
-                        gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Paused");
-                    }
-                }
-                else
-                {
-                    gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Loading");
+                renderEngine.RenderObjects(gl, GameObjects.ToArray());
+                if(Paused){
+                    gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Paused");
                 }
             }
-            catch(Exception error){
-                DebugTools.LogError(error);
+            else
+            {
+                gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Loading");
             }
             _starDrawTime.Stop();
             DrawTime = (int)_starDrawTime.ElapsedMilliseconds;
