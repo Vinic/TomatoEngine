@@ -54,7 +54,7 @@ namespace TomatoEngine
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
                 //Loading level
-                Levels.SpaceTest(this);
+                Levels.BallDemo(this);
                 //Startup is complete
                 StartupComplete = true;
             }catch(Exception error){

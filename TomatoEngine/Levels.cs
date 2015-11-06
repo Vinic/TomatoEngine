@@ -23,12 +23,14 @@ namespace TomatoEngine
                 TomatoMainEngine.AddGameObject(a);
             }
             
+            
         }
 
         public static void BallDemo(TomatoMainEngine engine)
         {
+            SoundPool.PlayBackgroundMusic("Bricks");
             Random r = new Random();
-            for ( int i = 0; i < 4; i++ )
+            for ( int i = 0; i < 2; i++ )
             {
                 var a = new ParticleBallDemo.FlammingBall();
                 a.SetPos(r.Next(-10, 10), r.Next(-10, 10));

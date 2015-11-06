@@ -18,6 +18,7 @@ namespace TomatoEngine.ParticleBallDemo
             SetTexture(ResourceManager.GetTexture("ball"));
             Z_Index = 10;
             _fire.SetColor(0,200,0);
+            _fire
             SetStaticObject(false);
             SetPhysSize(0.7f);
         }
