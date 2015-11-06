@@ -212,6 +212,10 @@ namespace TomatoEngine
             
         }
 
+        public virtual bool OnColision(RenderObject col, float inpact)
+        {
+            return true;
+        }
 
         public virtual void Draw(OpenGL gl)
         {

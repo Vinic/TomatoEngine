@@ -9,7 +9,8 @@ namespace TomatoEngine.Particle
     {
         private int _lifeTime = 10;
         private float _speed = 1;
-        public Particle(ImageTexture texture, float x, float y, float _rotation, float speed, int lifetime, float sizex, float sizey, byte[] color) : base()
+        private int _parent = 0;
+        public Particle(ImageTexture texture, float x, float y, float _rotation, float speed, int lifetime, float sizex, float sizey, byte[] color, int parent, bool physics) : base()
         {
             Type = "Particle.Particle";
             SetSize(sizex,sizey);
@@ -18,7 +19,7 @@ namespace TomatoEngine.Particle
             SetRotation(_rotation);
             SetPos(x,y);
             _speed = speed;
-            EnablePhysics(true);
+            EnablePhysics(physics);
             SetStaticObject(false);
             EnableAirResistance(false);
             SetIsParticle(true);
@@ -28,6 +29,7 @@ namespace TomatoEngine.Particle
             SetVelocity(xAdd * _speed, yAdd * _speed);
             SetPhysSize(0.1f);
             SetColor(color);
+            _parent = parent;
         }
 
         public override void Update(GameSettings settings)
@@ -52,6 +54,10 @@ namespace TomatoEngine.Particle
         public override void DrawWireFrame(SharpGL.OpenGL gl)
         {
             base.DrawWireFrame(gl);
+        }
+        public override bool OnColision(RenderObject col, float inpact)
+        {
+            return col.EntityId != _parent;
         }
     }
 }

@@ -162,6 +162,10 @@ namespace TomatoEngine
         {
             return (float)Math.Atan2(x,y);
         }
+        public float GetSpeed()
+        {
+            return x + y;
+        }
     }
     public enum RenderMode
     {

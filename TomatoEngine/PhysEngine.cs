@@ -38,6 +38,10 @@ namespace TomatoEngine
             float e2 = ( Math.Abs(vel1.y)+ Math.Abs(vel2.y) ) * dir.y;
             e1 = e1 / 2;
             e2 = e2 / 2;
+            if(!physObject1.OnColision(physObject2, e1 + e2)){
+                return;
+            }
+
             if ( physObject2.HasMass()  == true )
             {
                 physObject1.SetPosAdd(vel1 / -1);
@@ -49,6 +53,7 @@ namespace TomatoEngine
                 physObject2.SetVelocity(-e1, -e2);
                 physObject2.SetRotationVelocity(( (float)Math.Atan2(vel1.x + vel2.x, vel1.y + vel2.y) - (float)Math.Atan2(x, y) ) / 100f);
             }
+            
             PhysInteractions++;
 
         }
