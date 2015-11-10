@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2DFrontView\levels\DefaultLevel.cs" />
+    <Compile Include="2DFrontView\World\GroundTile.cs" />
     <Compile Include="CamController.cs" />
     <Compile Include="ControlKeys.cs" />
     <Compile Include="DebugTools.cs">
@@ -69,6 +71,7 @@
     </Compile>
     <Compile Include="Helpers\PhysicsAndPositions.cs" />
     <Compile Include="ImageTexture.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Levels.cs" />
     <Compile Include="Lights\Light.cs" />
     <Compile Include="ParticleBallDemo\FlammingBall.cs" />

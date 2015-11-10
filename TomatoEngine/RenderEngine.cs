@@ -11,42 +11,43 @@ namespace TomatoEngine
         private RenderMode _mode = RenderMode.Normal;
         public void RenderObjects(OpenGL gl, RenderObject[] objects)
         {
+            //clears the screen
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+            //St matrix mode to PROJECTION so we can move the camera
             gl.MatrixMode(OpenGL.GL_PROJECTION);
             //  Load the identity matrix.
             gl.LoadIdentity();
+            //Move the camera
             CamController.SetCam(gl);
+            //Set matrix mode back to Modelview so we can draw objects
             gl.MatrixMode(OpenGL.GL_MODELVIEW);
+
             if (_mode == RenderMode.WireFrame || _mode == RenderMode.Hitboxes)
             {
-                
                 foreach(RenderObject obj in objects){
+                    //Draw the object with texture
                     obj.Draw(gl);
+                    //Unbind texture so we can draw lines
                     gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
-                    
                     if ( _mode == RenderMode.Hitboxes)
                     {
-                        if ( obj.Type != "Particle.Particle" )
-                        {
-                            DrawCircle(gl, obj.GetPosition().x, obj.GetPosition().y, obj.GetPhysSize());
-                        }
                         obj.DrawVelocity(gl);
                     }
                     else
                     {
                         obj.DrawWireFrame(gl);
                     }
-                    
-                    
                 }
             }
             else 
             {
                 foreach ( RenderObject obj in objects )
                 {
+                    //Draw the object with texture
                     obj.Draw(gl);
                 }
             }
+            //Unbind texture
             gl.BindTexture(OpenGL.GL_TEXTURE_2D, 0);
         }
         public void SetRenderMode(RenderMode mode)
@@ -78,11 +79,17 @@ namespace TomatoEngine
     public static class RenderLogics
     {
         public static PointFloat[] RectPoint(PointFloat pos,PointFloat size, float t){
-            var res = new PointFloat[4];
-            res[0] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(-45)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(-45)) * size.y));
-            res[1] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(45)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(45)) * size.y));
-            res[2] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(135)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(135)) * size.y));
-            res[3] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(225)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(225)) * size.y));
+            PointFloat[] res = new PointFloat[4];
+            //res[0] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(-45)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(-45)) * size.y));
+            //res[1] = new PointFloat(pos.x + (float)( Math.Cos(-t + DegreeToRad(45)) * size.x ), pos.y + (float)( Math.Sin(-t + DegreeToRad(45)) * size.y ));
+            //res[2] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(135)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(135)) * size.y));
+            //res[3] = new PointFloat(pos.x + (float)(Math.Cos(-t + DegreeToRad(225)) * size.x), pos.y + (float)(Math.Sin(-t + DegreeToRad(225)) * size.y));
+            for ( int i=0; i < res.Length; i++ )
+            {
+                res[i] = new PointFloat(pos.x + (float)( Math.Cos(-t + DegreeToRad(-45 + 90 * i)) * size.x ) * 1.41421359f, pos.y + (float)( Math.Sin(-t + DegreeToRad(-45 + 90 * i)) * size.y ) * 1.41421359f);
+                //res[i] = new PointFloat((pos.x * (float)Math.Cos(t + DegreeToRad(-45 + 90 * i)) - pos.y * (float)Math.Sin(t + DegreeToRad(-45 + 90 * i))) /10.0f,
+                //    (pos.x * (float)Math.Cos(t + DegreeToRad(-45 + 90 * i)) + pos.y * (float)Math.Sin(t + DegreeToRad(-45 + 90 * i))) / 10.0f);
+            }            
             return res;
         }
         public static float DegreeToRad(float r)
@@ -161,6 +168,28 @@ namespace TomatoEngine
         public float GetDirection()
         {
             return (float)Math.Atan2(x,y);
+        }
+        public float GetSpeed()
+        {
+            return x + y;
+        }
+        public void Max(float max)
+        {
+            if(x > max){
+                x = max;
+            }
+            else if(x < -max)
+            {
+                x = -max;
+            }
+            if ( y > max )
+            {
+                y = max;
+            }
+            else if ( y < -max )
+            {
+                y = -max;
+            }
         }
     }
     public enum RenderMode

@@ -14,7 +14,8 @@ namespace TomatoEngine.Particle
         private float _rot = 0f, _spread = 0.3f, _speedSpread = 0.0f;
         private Random _random = new Random();
         private byte[] _color = new byte[3];
-        private bool _ransomSpeed = false;
+        private bool _ransomSpeed = false, _phys = true;
+        private int _parent = 0;
         public ParticleSystem(string texture)
         {
             _texture = ResourceManager.GetTexture(texture);
@@ -102,11 +103,23 @@ namespace TomatoEngine.Particle
             _color[1] = g;
             _color[2] = b;
         }
+        public void SetParent(int entityId)
+        {
+            _parent = entityId;
+        }
+        public int GetParent()
+        {
+            return _parent;
+        }
 
         public void SetRandomSpeed(bool on, float amount)
         {
             _ransomSpeed = on;
             _speedSpread = amount;
+        }
+        public void SetPhysics(bool enable)
+        {
+            _phys = enable;
         }
         private float RandomSpread(float input, float spread)
         {
@@ -118,7 +131,7 @@ namespace TomatoEngine.Particle
             if(_ransomSpeed){
                 speed = RandomSpread(speed, _speedSpread);
             }
-            Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color);
+            Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color, _parent, _phys);
             TomatoMainEngine.AddGameObject(p);
         }
         public void Blow(float speed, int amount)
@@ -129,7 +142,7 @@ namespace TomatoEngine.Particle
                 {
                     speed = RandomSpread(speed, _speedSpread);
                 }
-                Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color);
+                Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color, _parent, _phys);
                 TomatoMainEngine.AddGameObject(p);
             }
         }

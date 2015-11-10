@@ -9,7 +9,7 @@ namespace TomatoEngine
     public class RenderObject
     {
         public bool RenderOuterScreen = false;
-        private float _rot, _rotV;
+        private float _rot, _rotV, _maxVel = 1f;
         private PointFloat _pos = new PointFloat(0,0), _size = new PointFloat(1,1), _vel = new PointFloat(0.0f,0.0f);
         private ImageTexture _texture = ResourceManager.GetTexture("test");
         public int EntityId;
@@ -51,6 +51,10 @@ namespace TomatoEngine
                 _texture = t;
             }
 
+        }
+        public ImageTexture GetTexture()
+        {
+            return _texture;
         }
         public void SetSize(PointFloat size)
         {
@@ -105,6 +109,10 @@ namespace TomatoEngine
         public PointFloat GetPosition()
         {
             return _pos;
+        }
+        public PointFloat GetSize()
+        {
+            return _size;
         }
         public void SetPosAdd(PointFloat add)
         {
@@ -194,6 +202,14 @@ namespace TomatoEngine
         {
             return _color;
         }
+        public void SetMaxVelocity(float max)
+        {
+            _maxVel = max;
+        }
+        public float GetMaxVelocity()
+        {
+            return _maxVel;
+        }
         public virtual void Update(GameSettings settings){
             if(!_staticPosition && (_vel.HasValue() || _rotV != 0)){
                 if(_airResistance){
@@ -201,6 +217,7 @@ namespace TomatoEngine
                     _vel.y = _vel.y - (_vel.y / 40);
                     _rotV = _rotV - (_rotV / 40);
                 }
+                _vel.Max(_maxVel);
                 SetPosAdd(_vel);
                 SetRotationAdd(_rotV);
             }
@@ -212,6 +229,10 @@ namespace TomatoEngine
             
         }
 
+        public virtual bool OnColision(RenderObject col, float inpact)
+        {
+            return true;
+        }
 
         public virtual void Draw(OpenGL gl)
         {

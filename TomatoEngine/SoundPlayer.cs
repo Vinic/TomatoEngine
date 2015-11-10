@@ -37,9 +37,11 @@ namespace TomatoEngine
     {
         private static List<AudioObject> _AudioObjectList = new List<AudioObject>();
         private static MediaLibrary _playlist = new MediaLibrary();
+        private static VisualizationData _visualizationData = new VisualizationData();
         static SoundPool()
         {
             FrameworkDispatcher.Update();
+            MediaPlayer.IsVisualizationEnabled = true;
         }
 
         public static void PlaySound(string name)
@@ -78,6 +80,12 @@ namespace TomatoEngine
             MediaPlayer.Stop();
             MediaPlayer.Play(Song.FromUri(name, location));
 
+        }
+        public static VisualizationData GetBackgroundVisData()
+        {
+
+            MediaPlayer.GetVisualizationData(_visualizationData);
+            return _visualizationData;
         }
 
     }

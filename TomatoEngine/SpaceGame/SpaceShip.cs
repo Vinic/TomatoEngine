@@ -80,5 +80,13 @@ namespace TomatoEngine.SpaceGame
             return vel;
         }
 
+        public override bool OnColision(RenderObject col, float inpact)
+        {
+            if(inpact > 1){
+                SoundPool.PlaySound("");
+            }
+            return true;
+        }
+
     }
 }

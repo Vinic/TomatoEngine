@@ -54,7 +54,7 @@ namespace TomatoEngine
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
                 //Loading level
-                Levels.BallDemo(this);
+                Levels.SpaceTest(this);
                 //Startup is complete
                 StartupComplete = true;
             }catch(Exception error){
@@ -95,6 +95,7 @@ namespace TomatoEngine
                 }
             );
             if(!Paused){
+                CamController.Update();
                 foreach (RenderObject obj in GameObjects)
                 {
                     obj.Update(settings);

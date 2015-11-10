@@ -5,6 +5,8 @@ using System.Text;
 
 namespace TomatoEngine
 {
+
+    //THIS IS THE OLD WAY TO MAKE LEVELS
     static class Levels
     {
         public static void SpaceTest(TomatoMainEngine engine){
@@ -37,7 +39,6 @@ namespace TomatoEngine
                 a.SetRotation((float)r.Next(100) / 50);
                 TomatoMainEngine.AddGameObject(a);
             }
-
         }
     }
 }
