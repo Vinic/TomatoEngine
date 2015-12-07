@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TomatoEngine
+namespace TomatoEngine.TimedFireworks
 {
-    public class Level : ILevel
+    public class TimedLevel : Level
     {
-        public Level()
+        public  TimedLevel(): base()
         {
 
         }
         //Build the level / init map / add player etc
-        public virtual void Build(TomatoMainEngine engine)
+        public override void Build(TomatoMainEngine engine)
         {
 
         }
         //Update the level so objects can be added or modifyed
-        public virtual void Update(GameSettings settings)
+        public override void Update(GameSettings settings)
         {
 
         }
         //Draw the level(score or a hud)
-        public virtual void Draw(OpenGL gl)
+        public override void Draw(OpenGL gl)
         {
 
         }

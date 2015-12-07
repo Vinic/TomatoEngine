@@ -70,6 +70,7 @@
       <DependentUpon>DebugTools.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PhysicsAndPositions.cs" />
+    <Compile Include="ILevel.cs" />
     <Compile Include="ImageTexture.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Levels.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="SpaceGame\Asteroid.cs" />
     <Compile Include="SpaceGame\SpaceShip.cs" />
     <Compile Include="TextureLoader.cs" />
+    <Compile Include="TimedFireworks\TimedLevel.cs" />
     <Compile Include="TomatoMainEngine.cs" />
     <EmbeddedResource Include="DebugTools.resx">
       <DependentUpon>DebugTools.cs</DependentUpon>
