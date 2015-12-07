@@ -6,31 +6,43 @@ using System.Text;
 
 namespace TomatoEngine
 {
-    public class RenderObject
+
+
+    public class RenderObject 
     {
         public bool RenderOuterScreen = false;
         private float _rot, _rotV, _maxVel = 1f;
         private PointFloat _pos = new PointFloat(0,0), _size = new PointFloat(1,1), _vel = new PointFloat(0.0f,0.0f);
         private ImageTexture _texture = ResourceManager.GetTexture("test");
-        public int EntityId;
-        public string Type = "DefaultObject";
         private bool _physics = false;
         private bool _staticPosition = true;
         private bool _airResistance = false;
         private float _physSize = 1f;
         private bool _hasMass = true;
         private bool _isParticle = false;
-        public int Z_Index = 0;
         private byte[] _color = new byte[3];
+        public int Z_Index = 0;
+        public string Type;
+
         public RenderObject()
         {
+            Type = "Def";
             EntityId = TomatoMainEngine.GetNewEntityId();
             _color[0] = 255;
             _color[1] = 255;
             _color[2] = 255;
         }
 
-        public RenderObject(float x, float y, float sx, float sy)
+        public RenderObject(string type)
+        {
+            Type = type;
+            EntityId = TomatoMainEngine.GetNewEntityId();
+            _color[0] = 255;
+            _color[1] = 255;
+            _color[2] = 255;
+        }
+
+        public RenderObject(string type, float x, float y, float sx, float sy)
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
             _pos.x = x;
@@ -43,10 +55,12 @@ namespace TomatoEngine
             _color[2] = 255;
         }
 
-        public void SetTexture(string name, OpenGL gl)
+        public int EntityId { get; private set; }
+
+
+        public void SetTexture(string name)
         {
             var t = ResourceManager.GetTexture(name);
-            t.InitTexture(gl);
             if(t != null){
                 _texture = t;
             }
@@ -78,7 +92,7 @@ namespace TomatoEngine
         {
             return _hasMass;
         }
-        public void HasMass(bool yes)
+        protected void HasMass(bool yes)
         {
            _hasMass = yes;
         }
@@ -158,11 +172,11 @@ namespace TomatoEngine
         {
             _rotV = rotVelocity;
         }
-        public void EnablePhysics(bool on)
+        protected void EnablePhysics(bool on)
         {
             _physics = on;
         }
-        public void SetStaticObject(bool on)
+        protected void SetStaticObject(bool on)
         {
             _staticPosition = on;
         }
@@ -170,6 +184,13 @@ namespace TomatoEngine
         {
             return _staticPosition;
         }
+
+        public bool StaticPosition
+        {
+            get { return _staticPosition; }
+            protected set { _staticPosition = value; }
+        }
+
         public bool HasPhysics()
         {
             return _physics;
@@ -221,9 +242,9 @@ namespace TomatoEngine
                 SetPosAdd(_vel);
                 SetRotationAdd(_rotV);
             }
-            if ( _physics && _vel.HasValue() && PhysEngine.IsOverlappingInCircle(this) )
+            if ( _physics && _vel.HasValue())
             {
-                List<RenderObject> collisions = PhysEngine.GetAllOverlappingInCircle(this);
+                List<RenderObject> collisions = PhysEngine.GetAllOverlapping(this);
                 PhysEngine.HandleAllObjects(this, collisions);
             }
             

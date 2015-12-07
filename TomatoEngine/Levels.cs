@@ -11,8 +11,8 @@ namespace TomatoEngine
     {
         public static void SpaceTest(TomatoMainEngine engine){
             //adds the background
-            RenderObject background = new RenderObject(0,0,30,30);
-            background.SetTexture(ResourceManager.GetTexture("background"));
+            //RenderObject background = new RenderObject("",0,0,30,30);
+            //background.SetTexture(ResourceManager.GetTexture("background"));
             //TomatoMainEngine.GameObjects.Add(background);
             //add a space ship
             TomatoMainEngine.GameObjects.Add(new SpaceGame.SpaceShip());
@@ -22,6 +22,7 @@ namespace TomatoEngine
                 var a = new SpaceGame.Asteroid();
                 a.SetPos(r.Next(-100, 100), r.Next(-100, 100));
                 a.SetRotation((float)r.Next(100) / 50);
+                //a.SetVelocityAdd((float)r.Next(-10,10) / 50, (float)r.Next(-10,10) / 50);
                 TomatoMainEngine.AddGameObject(a);
             }
             

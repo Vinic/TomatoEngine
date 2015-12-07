@@ -8,17 +8,22 @@ namespace TomatoEngine.SpaceGame
     public class SpaceShip : RenderObject
     {
         private Particle.ParticleSystem engineFirePar = new Particle.ParticleSystem("engineFire");
+        private Particle.ParticleSystem gun = new Particle.ParticleSystem("bullet");
         private PointFloat _particleOffset1 = new PointFloat(0, -2);
         public SpaceShip() : base()
         {
             Type = "SpaceGame.SpaceShip";
             SetTexture(ResourceManager.GetTexture("spaceShip"));
-            engineFirePar.SetLifeTime(3, 30);
+            engineFirePar.SetLifeTime(100, 200);
             engineFirePar.SetRandomSpeed(true, 0.1f);
+            gun.SetRandomSpeed(true, 0.1f); 
+            gun.SetLifeTime(30, 30);
+            gun.SetSpread(0.1f);
             EnablePhysics(true);
             SetStaticObject(false);
             EnableAirResistance(true);
             SetPhysSize(0.5f);
+            Z_Index = 5;
             //Lights.Light _light = new Lights.Light(255, 0, 255, EntityId);
             //TomatoMainEngine.AddGameObject(_light);
         }
@@ -48,12 +53,9 @@ namespace TomatoEngine.SpaceGame
             }
             if ( ControlKeys.IsKeyDown("e") )
             {
-
-                engineFirePar.SetLifeTime(100,200);
-                engineFirePar.SetSpread((float)Math.PI * 2);
-                engineFirePar.Blow(1f, 100);
-                engineFirePar.SetSpread(0.3f);
-                engineFirePar.SetLifeTime(3,30);
+                gun.SetPos(Helpers.PhysicsAndPositions.OffsetPosition(GetPosition(), 2.0f, GetRotation() + (float)Math.PI * 0.5f));
+                gun.SetRot(GetRotation());
+                gun.Blow(1f, 3, true);
             }
             SetVelocity(vel);
             SetRotationVelocity(rotV);
@@ -68,7 +70,7 @@ namespace TomatoEngine.SpaceGame
             float yAdd = (float)Math.Cos((double)GetRotation());
             vel.x = vel.x + ( xAdd - vel.x )/100;
             vel.y = vel.y + ( yAdd - vel.y )/100;
-            engineFirePar.Blow(0.4f, 2);
+            engineFirePar.Blow(0.4f, 2, false);
             return vel;
         }
         private PointFloat MoveBackward(PointFloat vel)

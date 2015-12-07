@@ -50,7 +50,7 @@ namespace TomatoEngine.ParticleBallDemo
             SetVelocityAdd(_dir / 500);
             
             _fire.SetPos(GetPosition());
-            _fire.Blow(0.03f,4);
+            _fire.Blow(0.03f,4, false);
             if (_timer  < 0)
             {
                 SetVelocityAdd(Helpers.PhysicsAndPositions.GetDirection(GetRotation()) / 10.0f);
@@ -65,7 +65,7 @@ namespace TomatoEngine.ParticleBallDemo
         public override bool OnColision(RenderObject col, float inpact)
         {
             if(Type == col.Type){
-                _fire.Blow(1.0f, 50);
+                _fire.Blow(1.0f, 50, false);
             }
             return true;
         }

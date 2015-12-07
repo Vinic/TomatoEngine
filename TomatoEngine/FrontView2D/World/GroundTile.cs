@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TomatoEngine._2DFrontView.World
+namespace TomatoEngine.FrontView2D.World
 {
     public class GroundTile : RenderObject
     {
         PointFloat _size;
         public GroundTile(float x, float y, float width, float heigth, string texureName)
-            : base(x, y, width, heigth)
+            : base("Tile", x, y, width, heigth)
         {
             SetTexture(ResourceManager.GetTexture(texureName));
         }

@@ -126,15 +126,15 @@ namespace TomatoEngine.Particle
             return input - ( spread / 2f ) + ( (float)_random.Next((int)( spread * 10000000 )) ) / 10000000;
         }
 
-        public void Blow(float speed)
+        public void Blow(float speed, bool mass)
         {
             if(_ransomSpeed){
                 speed = RandomSpread(speed, _speedSpread);
             }
-            Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color, _parent, _phys);
+            Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color, _parent, _phys, mass);
             TomatoMainEngine.AddGameObject(p);
         }
-        public void Blow(float speed, int amount)
+        public void Blow(float speed, int amount, bool mass)
         {
             for ( int a = 0; a < amount; a++ )
             {
@@ -142,7 +142,7 @@ namespace TomatoEngine.Particle
                 {
                     speed = RandomSpread(speed, _speedSpread);
                 }
-                Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color, _parent, _phys);
+                Particle p = new Particle(_texture, _pos.x, _pos.y, RandomSpread(_rot, _spread), speed, _random.Next(_minlifetime, _maxlifetime), _size.x, _size.y, _color, _parent, _phys, mass);
                 TomatoMainEngine.AddGameObject(p);
             }
         }
