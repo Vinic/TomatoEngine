@@ -23,7 +23,7 @@ namespace TomatoEngine
         
         public SharpGLForm()
         {
-            engine = new TomatoMainEngine();
+            engine = new TomatoMainEngine(this);
             InitializeComponent();
         }
 
@@ -35,6 +35,7 @@ namespace TomatoEngine
         private void openGLControl_OpenGLDraw(object sender, RenderEventArgs e)
         {
             OpenGL gl = openGLControl.OpenGL;
+            //engine.Update();
             engine.Draw(gl);
         }
 
@@ -97,7 +98,6 @@ namespace TomatoEngine
         private void GameUpdateTimer_Tick(object sender, EventArgs e)
         {
             engine.Update();
-
         }
         private void SetFullScreen()
         {
@@ -122,6 +122,5 @@ namespace TomatoEngine
                 SetFullScreen();
             }
         }
-
     }
 }

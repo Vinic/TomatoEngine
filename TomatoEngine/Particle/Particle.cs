@@ -10,7 +10,7 @@ namespace TomatoEngine.Particle
         private int _lifeTime = 10;
         private float _speed = 1;
         private int _parent = 0;
-        public Particle(ImageTexture texture, float x, float y, float _rotation, float speed, int lifetime, float sizex, float sizey, byte[] color, int parent, bool physics) : base()
+        public Particle(ImageTexture texture, float x, float y, float _rotation, float speed, int lifetime, float sizex, float sizey, byte[] color, int parent, bool physics, bool mass) : base()
         {
             Type = "Particle.Particle";
             SetSize(sizex,sizey);
@@ -23,7 +23,7 @@ namespace TomatoEngine.Particle
             SetStaticObject(false);
             EnableAirResistance(false);
             SetIsParticle(true);
-            HasMass(false);
+            HasMass(mass);
             float xAdd = (float)Math.Sin((double)GetRotation());
             float yAdd = (float)Math.Cos((double)GetRotation());
             SetVelocity(xAdd * _speed, yAdd * _speed);
@@ -41,6 +41,7 @@ namespace TomatoEngine.Particle
                 _lifeTime = 0;
                 TomatoMainEngine.RemoveRenderObject(EntityId);
             }
+            SetRotation(GetVelocity().GetDirection());
             base.Update(settings);
         }
         public override void Draw(SharpGL.OpenGL gl)

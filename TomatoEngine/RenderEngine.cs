@@ -32,6 +32,7 @@ namespace TomatoEngine
                     if ( _mode == RenderMode.Hitboxes)
                     {
                         obj.DrawVelocity(gl);
+                        DrawCircle(gl, obj.GetPosition().x,obj.GetPosition().y, obj.GetPhysSize());
                     }
                     else
                     {
@@ -171,7 +172,7 @@ namespace TomatoEngine
         }
         public float GetSpeed()
         {
-            return x + y;
+            return Math.Abs(x) + Math.Abs(y);
         }
         public void Max(float max)
         {

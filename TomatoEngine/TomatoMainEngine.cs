@@ -23,8 +23,11 @@ namespace TomatoEngine
         private Stopwatch _starUpdateTime = new Stopwatch();
         public int UpdateTime = 0;
         public int DrawTime = 0;
-        public TomatoMainEngine()
+        public Level _level;
+        private SharpGLForm _form;
+        public TomatoMainEngine(SharpGLForm form)
         {
+            _form = form;
             DebugTools = new DebugTools(this);
             DebugTools.LogToConsole("Start Up");
         }
@@ -54,47 +57,47 @@ namespace TomatoEngine
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
                 //Loading level
-                Levels.SpaceTest(this);
+                _level = new MasterMindGame.MasterMind();
+                _level.Build(this);
                 //Startup is complete
                 StartupComplete = true;
-            }catch(Exception error){
+            }
+            catch (Exception error)
+            {
                 DebugTools.LogError(error);
             }
-            
+
         }
 
         public void Update()
         {
             _starUpdateTime.Reset();
             _starUpdateTime.Start();
+            _level.Update(settings);
             PhysEngine.PhysInteractions = 0;
-            if(!StartupComplete){
+            if (!StartupComplete)
+            {
                 return;
             }
-            if(trash.Count > 0){
-                for ( int i=0; i<trash.Count; i++ )
+            if (trash.Count > 0)
+            {
+                for (int i = 0; i < trash.Count; i++)
                 {
                     GameObjects.Remove(trash[i]);
                 }
                 trash.Clear();
             }
-            if(toAdd.Count > 0){
-                for ( int i=0; i<toAdd.Count; i++ )
+            if (toAdd.Count > 0)
+            {
+                for (int i = 0; i < toAdd.Count; i++)
                 {
-                    if (GameObjects.Count < 1000)
-                    {
-                        GameObjects.Add(toAdd[i]);
-                    }
+                    GameObjects.Add(toAdd[i]);
                 }
                 toAdd.Clear();
             }
-            GameObjects.Sort(
-                delegate(RenderObject p1, RenderObject p2)
-                {
-                    return p1.Z_Index.CompareTo(p2.Z_Index);
-                }
-            );
-            if(!Paused){
+
+            if (!Paused)
+            {
                 CamController.Update();
                 foreach (RenderObject obj in GameObjects)
                 {
@@ -113,7 +116,8 @@ namespace TomatoEngine
             if (StartupComplete)
             {
                 renderEngine.RenderObjects(gl, GameObjects.ToArray());
-                if(Paused){
+                if (Paused)
+                {
                     gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Paused");
                 }
             }
@@ -121,11 +125,16 @@ namespace TomatoEngine
             {
                 gl.DrawText(100, 100, 1f, 1f, 1f, "verdana", 20, "Loading");
             }
+            if (_level != null)
+            {
+                _level.Draw(gl);
+            }
             _starDrawTime.Stop();
             DrawTime = (int)_starDrawTime.ElapsedMilliseconds;
         }
 
-        public void Resized(OpenGL gl, double aspect){
+        public void Resized(OpenGL gl, double aspect)
+        {
 
             //  Set the projection matrix.
             gl.MatrixMode(OpenGL.GL_PROJECTION);
@@ -156,19 +165,20 @@ namespace TomatoEngine
             {
                 ControlKeys.KeyUp(key);
             }
-            else if ( key == Keys.F1 )
+            else if (key == Keys.F1)
             {
                 renderEngine.SetRenderMode(RenderMode.WireFrame);
                 DebugTools.LogToConsole("RenderMode: WireFrame");
             }
-            else if ( key == Keys.F2 )
+            else if (key == Keys.F2)
             {
                 renderEngine.SetRenderMode(RenderMode.Normal);
                 DebugTools.LogToConsole("RenderMode: Normal");
             }
             else if (key == Keys.F12)
             {
-                if(DebugTools.Visible == false){
+                if (DebugTools.Visible == false)
+                {
                     DebugTools.Show();
                     DebugTools.LogToConsole("Console open");
                 }
@@ -184,21 +194,25 @@ namespace TomatoEngine
                 renderEngine.SetRenderMode(RenderMode.Hitboxes);
                 DebugTools.LogToConsole("RenderMode: Hitboxes");
             }
-            
+
         }
         public static int GetNewEntityId()
         {
             bool good = false;
             int id = 0;
-            while(!good){
+            while (!good)
+            {
                 id = GameRandom.Next(100000000);
                 bool isTaken = false;
-                foreach(RenderObject obj in GameObjects){
-                    if(obj.EntityId == id){
+                foreach (RenderObject obj in GameObjects)
+                {
+                    if (obj.EntityId == id)
+                    {
                         isTaken = true;
                     }
                 }
-                if(!isTaken){
+                if (!isTaken)
+                {
                     good = true;
                 }
             }
@@ -206,9 +220,9 @@ namespace TomatoEngine
         }
         public static RenderObject GetRenderObject(int entityId)
         {
-            foreach ( RenderObject obj in GameObjects )
+            foreach (RenderObject obj in GameObjects)
             {
-                if ( obj.EntityId == entityId )
+                if (obj.EntityId == entityId)
                 {
                     return obj;
                 }
@@ -218,9 +232,10 @@ namespace TomatoEngine
 
         public static bool RemoveRenderObject(int entityId)
         {
-            for ( int i=0; i<GameObjects.Count; i++ )
+
+            for (int i = 0; i < GameObjects.Count; i++)
             {
-                if ( GameObjects[i].EntityId == entityId )
+                if (GameObjects[i].EntityId == entityId)
                 {
                     trash.Add(GameObjects[i]);
                     return true;
@@ -231,6 +246,17 @@ namespace TomatoEngine
         public static void AddGameObject(RenderObject obj)
         {
             toAdd.Add(obj);
+            GameObjects.Sort(
+                delegate(RenderObject p1, RenderObject p2)
+                {
+                    return p1.Z_Index.CompareTo(p2.Z_Index);
+                }
+            );
+        }
+        public void SetSize(int width, int height)
+        {
+            _form.Width = width;
+            _form.Height = height;
         }
     }
 }
