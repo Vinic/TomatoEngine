@@ -38,6 +38,7 @@
             this.progressbartext = new System.Windows.Forms.Label();
             this.DrawTimeText = new System.Windows.Forms.Label();
             this.UpdateTimeText = new System.Windows.Forms.Label();
+            this.buttonUnlockSize = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TextOutput
@@ -120,12 +121,23 @@
             this.UpdateTimeText.TabIndex = 7;
             this.UpdateTimeText.Text = "Update Time: ";
             // 
+            // buttonUnlockSize
+            // 
+            this.buttonUnlockSize.Location = new System.Drawing.Point(565, 13);
+            this.buttonUnlockSize.Name = "buttonUnlockSize";
+            this.buttonUnlockSize.Size = new System.Drawing.Size(75, 23);
+            this.buttonUnlockSize.TabIndex = 8;
+            this.buttonUnlockSize.Text = "Unlock Size";
+            this.buttonUnlockSize.UseVisualStyleBackColor = true;
+            this.buttonUnlockSize.Click += new System.EventHandler(this.buttonUnlockSize_Click);
+            // 
             // DebugTools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(652, 261);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonUnlockSize);
             this.Controls.Add(this.UpdateTimeText);
             this.Controls.Add(this.DrawTimeText);
             this.Controls.Add(this.progressbartext);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Label progressbartext;
         private System.Windows.Forms.Label DrawTimeText;
         private System.Windows.Forms.Label UpdateTimeText;
+        private System.Windows.Forms.Button buttonUnlockSize;
     }
 }

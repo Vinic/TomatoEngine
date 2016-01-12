@@ -5,16 +5,16 @@ using System.Text;
 
 namespace TomatoEngine.MasterMindGame
 {
-    public class MasterMindBoard : RenderObject
+    public class MasterMindBoard : GameObject
     {
-        private RenderObject[,] pins = new RenderObject[4,7];
+        private GameObject[,] pins = new GameObject[4,7];
         public MasterMindBoard()
             :base()
         {
             SetStaticObject(true);
             SetTexture("mm_board");
             SetSize(10.0f,10.0f);
-            Z_Index = 1;
+            Z_Index = 100;
             
         }
 

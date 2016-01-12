@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TomatoEngine.Particle
 {
-    class Particle : RenderObject
+    class Particle : GameObject
     {
         private int _lifeTime = 10;
         private float _speed = 1;
@@ -83,7 +83,7 @@ namespace TomatoEngine.Particle
         {
             base.DrawWireFrame(gl);
         }
-        public override bool OnColision(RenderObject col, float inpact)
+        public override bool OnColision(GameObject col, float inpact)
         {
             return col.EntityId != _parent && EntityId != col.EntityId;
         }

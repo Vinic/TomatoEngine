@@ -84,5 +84,10 @@ namespace TomatoEngine
             TomatoMainEngine.GameObjects.Clear();
             Levels.SpaceTest(_engine);
         }
+
+        private void buttonUnlockSize_Click(object sender, EventArgs e)
+        {
+            _engine.settings.SizeLocked = false;
+        }
     }
 }

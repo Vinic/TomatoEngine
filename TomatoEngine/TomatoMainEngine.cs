@@ -11,12 +11,12 @@ namespace TomatoEngine
     {
         public bool StartupComplete = false;
         public ResourceManager resourceManager;
-        public static List<RenderObject> GameObjects = new List<RenderObject>();
+        public static List<GameObject> GameObjects = new List<GameObject>();
         public RenderEngine renderEngine = new RenderEngine();
         public GameSettings settings = new GameSettings(1f);
         public static Random GameRandom = new Random();
-        private static List<RenderObject> trash = new List<RenderObject>();
-        private static List<RenderObject> toAdd = new List<RenderObject>();
+        private static List<GameObject> trash = new List<GameObject>();
+        private static List<GameObject> toAdd = new List<GameObject>();
         public static DebugTools DebugTools;
         public bool Paused = false;
         private Stopwatch _starDrawTime = new Stopwatch();
@@ -59,8 +59,14 @@ namespace TomatoEngine
                 //Loading level
                 //_level = new MasterMindGame.MasterMind();
                 //_level.Build(this);
-                _level = new TimedFireworks.TimedLevel();
+                _level = new MasterMindGame.MasterMind();
                 _level.Build(this);
+                GameObjects.Sort(
+                    delegate(GameObject p1, GameObject p2)
+                    {
+                        return p1.Z_Index.CompareTo(p2.Z_Index);
+                    }
+                );
                 //Startup is complete
                 StartupComplete = true;
             }
@@ -97,7 +103,7 @@ namespace TomatoEngine
                 }
                 toAdd.Clear();
                 GameObjects.Sort(
-                    delegate(RenderObject p1, RenderObject p2)
+                    delegate(GameObject p1, GameObject p2)
                     {
                         return p1.Z_Index.CompareTo(p2.Z_Index);
                     }
@@ -107,7 +113,7 @@ namespace TomatoEngine
             if (!Paused)
             {
                 CamController.Update();
-                foreach (RenderObject obj in GameObjects)
+                foreach (GameObject obj in GameObjects)
                 {
                     obj.Update(settings);
                 }
@@ -212,7 +218,7 @@ namespace TomatoEngine
             {
                 id = GameRandom.Next(100000000);
                 bool isTaken = false;
-                foreach (RenderObject obj in GameObjects)
+                foreach (GameObject obj in GameObjects)
                 {
                     if (obj.EntityId == id)
                     {
@@ -226,9 +232,9 @@ namespace TomatoEngine
             }
             return id;
         }
-        public static RenderObject GetRenderObject(int entityId)
+        public static GameObject GetRenderObject(int entityId)
         {
-            foreach (RenderObject obj in GameObjects)
+            foreach (GameObject obj in GameObjects)
             {
                 if (obj.EntityId == entityId)
                 {
@@ -251,7 +257,7 @@ namespace TomatoEngine
             }
             return false;
         }
-        public static void AddGameObject(RenderObject obj)
+        public static void AddGameObject(GameObject obj)
         {
             toAdd.Add(obj);
         }
@@ -259,6 +265,19 @@ namespace TomatoEngine
         {
             _form.Width = width;
             _form.Height = height;
+        }
+        public void LockSize(bool locked)
+        {
+            settings.SizeLocked = locked;
+            if(locked){
+                _form.FormBorderStyle = FormBorderStyle.FixedSingle;
+                _form.MaximizeBox = false;
+            }
+            else
+            {
+                _form.FormBorderStyle = FormBorderStyle.Sizable;
+                _form.MaximizeBox = true;
+            }
         }
     }
 }

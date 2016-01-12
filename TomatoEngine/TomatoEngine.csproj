@@ -69,6 +69,7 @@
     <Compile Include="DebugTools.Designer.cs">
       <DependentUpon>DebugTools.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Grid.cs" />
     <Compile Include="Helpers\PhysicsAndPositions.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="ImageTexture.cs" />
@@ -102,7 +103,7 @@
     <Compile Include="SpaceGame\Asteroid.cs" />
     <Compile Include="SpaceGame\SpaceShip.cs" />
     <Compile Include="TextureLoader.cs" />
-    <Compile Include="TimedFireworks\FireWork.cs" />
+    <None Include="TimedFireworks\FireWork.cs" />
     <Compile Include="TimedFireworks\TimedCannon.cs" />
     <Compile Include="TimedFireworks\TimedLevel.cs" />
     <Compile Include="TomatoMainEngine.cs" />
@@ -128,6 +129,7 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <Compile Include="GameSettings.cs" />
+    <None Include="EngineClasses.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

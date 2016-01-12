@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TomatoEngine.FrontView2D.World
 {
-    public class GroundTile : RenderObject
+    public class GroundTile : GameObject
     {
         PointFloat _size;
         public GroundTile(float x, float y, float width, float heigth, string texureName)

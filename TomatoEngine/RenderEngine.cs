@@ -9,7 +9,7 @@ namespace TomatoEngine
     public class RenderEngine
     {
         private RenderMode _mode = RenderMode.Normal;
-        public void RenderObjects(OpenGL gl, RenderObject[] objects)
+        public void RenderObjects(OpenGL gl, GameObject[] objects)
         {
             //clears the screen
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
@@ -24,7 +24,7 @@ namespace TomatoEngine
 
             if (_mode == RenderMode.WireFrame || _mode == RenderMode.Hitboxes)
             {
-                foreach(RenderObject obj in objects){
+                foreach(GameObject obj in objects){
                     //Draw the object with texture
                     obj.Draw(gl);
                     //Unbind texture so we can draw lines
@@ -42,7 +42,7 @@ namespace TomatoEngine
             }
             else 
             {
-                foreach ( RenderObject obj in objects )
+                foreach ( GameObject obj in objects )
                 {
                     //Draw the object with texture
                     obj.Draw(gl);

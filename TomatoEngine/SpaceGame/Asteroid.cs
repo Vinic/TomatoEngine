@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TomatoEngine.SpaceGame
 {
-    class Asteroid : RenderObject
+    class Asteroid : GameObject
     {
         private float _rotV;
         private PointFloat _vel = new PointFloat(0, 0);

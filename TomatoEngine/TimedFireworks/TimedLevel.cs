@@ -35,9 +35,9 @@ namespace TomatoEngine.TimedFireworks
             }
             if(ControlKeys.IsKeyDown("f") != _f){
                 _f = ControlKeys.IsKeyDown("f");
-                var fire = new FireWork(new PointFloat((float)r.Next(-150,150)/10f, -15), new byte[3] { (byte)r.Next(255), (byte)r.Next(255), (byte)r.Next(255) });
-                fire.Explode = true;
-                TomatoMainEngine.AddGameObject(fire);
+                //var fire = new FireWork(new PointFloat((float)r.Next(-150,150)/10f, -15), new byte[3] { (byte)r.Next(255), (byte)r.Next(255), (byte)r.Next(255) });
+                //fire.Explode = true;
+                //TomatoMainEngine.AddGameObject(fire);
             }
         }
         //Draw the level(score or a hud)

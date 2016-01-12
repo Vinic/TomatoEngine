@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TomatoEngine.ParticleBallDemo
 {
-    public class FlammingBall : RenderObject
+    public class FlammingBall : GameObject
     {
         private Particle.ParticleSystem _fire = new Particle.ParticleSystem("light");
         private PointFloat _dir = new PointFloat(0,0);
@@ -31,7 +31,7 @@ namespace TomatoEngine.ParticleBallDemo
             _dir.x = 0;
             _dir.y = 0;
             PointFloat selfPos = GetPosition();
-            foreach(RenderObject obj in TomatoMainEngine.GameObjects){
+            foreach(GameObject obj in TomatoMainEngine.GameObjects){
                 if(obj.Type == Type && obj != this){
                     
                     PointFloat objPos = obj.GetPosition();
@@ -62,7 +62,7 @@ namespace TomatoEngine.ParticleBallDemo
             }
             base.Update(settings);
         }
-        public override bool OnColision(RenderObject col, float inpact)
+        public override bool OnColision(GameObject col, float inpact)
         {
             if(Type == col.Type){
                 _fire.Blow(1.0f, 50, false);
