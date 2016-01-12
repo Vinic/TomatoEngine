@@ -14,7 +14,7 @@ namespace TomatoEngine.MasterMindGame
             SetStaticObject(true);
             SetTexture("mm_board");
             SetSize(10.0f,10.0f);
-            Z_Index = 1;
+            Z_Index = 100;
             
         }
 

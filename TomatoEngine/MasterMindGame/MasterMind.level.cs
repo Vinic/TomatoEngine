@@ -10,8 +10,9 @@ namespace TomatoEngine.MasterMindGame
         public override void Build(TomatoMainEngine engine)
         {
             base.Build(engine);
-            //TomatoMainEngine.AddGameObject(new MasterMindBoard());
+            
             engine.SetSize(300,600);
+            engine.LockSize(true);
             SoundPool.PlayBackgroundMusic("Arpanauts");
             //SoundPool.PlayBackgroundMusic("Bricks");
             var firstBackground = new RenderObject();
@@ -23,6 +24,7 @@ namespace TomatoEngine.MasterMindGame
             background.SetHeight(30);
             background.SetSize(60,0);
             TomatoMainEngine.AddGameObject(background);
+            TomatoMainEngine.AddGameObject(new MasterMindBoard());
         }
     }
 }

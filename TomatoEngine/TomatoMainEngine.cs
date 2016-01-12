@@ -258,5 +258,17 @@ namespace TomatoEngine
             _form.Width = width;
             _form.Height = height;
         }
+        public void LockSize(bool locked)
+        {
+            if(locked){
+                _form.FormBorderStyle = FormBorderStyle.FixedSingle;
+                _form.MaximizeBox = false;
+            }
+            else
+            {
+                _form.FormBorderStyle = FormBorderStyle.Sizable;
+                _form.MaximizeBox = true;
+            }
+        }
     }
 }
