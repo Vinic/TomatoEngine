@@ -42,7 +42,7 @@ namespace TomatoEngine.TimedFireworks
         }
         public void Fire()
         {
-            TomatoMainEngine.AddGameObject(new FireWork(_pos, _color));
+            //TomatoMainEngine.AddGameObject(new FireWork(_pos, _color));
             _firePar.SetPos(_pos);
             _firePar.Blow(0.5f,3,false);
         }

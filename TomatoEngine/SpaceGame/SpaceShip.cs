@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TomatoEngine.SpaceGame
 {
-    public class SpaceShip : RenderObject
+    public class SpaceShip : GameObject
     {
         private Particle.ParticleSystem engineFirePar = new Particle.ParticleSystem("engineFire");
         private Particle.ParticleSystem gun = new Particle.ParticleSystem("bullet");
@@ -82,7 +82,7 @@ namespace TomatoEngine.SpaceGame
             return vel;
         }
 
-        public override bool OnColision(RenderObject col, float inpact)
+        public override bool OnColision(GameObject col, float inpact)
         {
             if(inpact > 1){
                 SoundPool.PlaySound("");

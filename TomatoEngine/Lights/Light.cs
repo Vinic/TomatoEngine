@@ -8,7 +8,7 @@ using System.Text;
 
 namespace TomatoEngine.Lights
 {
-    public class Light : RenderObject
+    public class Light : GameObject
     {
         private int _parentId;
         private byte _r, _g, _b;
@@ -55,7 +55,7 @@ namespace TomatoEngine.Lights
             base.Update(settings);
             if ( _parentId != 0 )
             {
-                RenderObject parent = TomatoMainEngine.GetRenderObject(_parentId);
+                GameObject parent = TomatoMainEngine.GetRenderObject(_parentId);
                 SetPos(parent.GetPosition());
                 SetRotation(parent.GetRotation());
                 _vertexPos.X = GetPosition().x;

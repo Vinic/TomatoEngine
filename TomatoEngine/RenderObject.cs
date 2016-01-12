@@ -8,7 +8,7 @@ namespace TomatoEngine
 {
 
 
-    public class RenderObject 
+    public class GameObject 
     {
         public bool RenderOuterScreen = false;
         private float _rot, _rotV, _maxVel = 1f;
@@ -24,7 +24,7 @@ namespace TomatoEngine
         public int Z_Index = 0;
         public string Type;
 
-        public RenderObject()
+        public GameObject()
         {
             Type = "Def";
             EntityId = TomatoMainEngine.GetNewEntityId();
@@ -33,7 +33,7 @@ namespace TomatoEngine
             _color[2] = 255;
         }
 
-        public RenderObject(string type)
+        public GameObject(string type)
         {
             Type = type;
             EntityId = TomatoMainEngine.GetNewEntityId();
@@ -42,7 +42,7 @@ namespace TomatoEngine
             _color[2] = 255;
         }
 
-        public RenderObject(string type, float x, float y, float sx, float sy)
+        public GameObject(string type, float x, float y, float sx, float sy)
         {
             EntityId = TomatoMainEngine.GetNewEntityId();
             _pos.x = x;
@@ -244,13 +244,13 @@ namespace TomatoEngine
             }
             if ( _physics && _vel.HasValue())
             {
-                List<RenderObject> collisions = PhysEngine.GetAllOverlapping(this);
+                List<GameObject> collisions = PhysEngine.GetAllOverlapping(this);
                 PhysEngine.HandleAllObjects(this, collisions);
             }
             
         }
 
-        public virtual bool OnColision(RenderObject col, float inpact)
+        public virtual bool OnColision(GameObject col, float inpact)
         {
             return true;
         }

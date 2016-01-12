@@ -5,9 +5,9 @@ using System.Text;
 
 namespace TomatoEngine.MasterMindGame
 {
-    public class MasterMindBoard : RenderObject
+    public class MasterMindBoard : GameObject
     {
-        private RenderObject[,] pins = new RenderObject[4,7];
+        private GameObject[,] pins = new GameObject[4,7];
         public MasterMindBoard()
             :base()
         {

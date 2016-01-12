@@ -14,12 +14,12 @@ namespace TomatoEngine
     public static class PhysEngine
     {
         public static int PhysInteractions = 0;
-        private static List<RenderObject> _tempList = new List<RenderObject>();
+        private static List<GameObject> _tempList = new List<GameObject>();
         private static PointFloat _pointFloat = new PointFloat(0,0);
         private static float _pi = Helpers.PhysicsAndPositions.PI;
         public static PhysMode Mode = PhysMode.CircleBox;
         //handles collision
-        public static void CollideCircleBox(RenderObject physObject1, RenderObject physObject2)
+        public static void CollideCircleBox(GameObject physObject1, GameObject physObject2)
         {
             PointFloat vel1 = physObject1.GetVelocity();
             PointFloat vel2 = physObject2.GetVelocity();
@@ -63,7 +63,7 @@ namespace TomatoEngine
             PhysInteractions++;
 
         }
-        public static void CollideBox(RenderObject physObject1, RenderObject physObject2)
+        public static void CollideBox(GameObject physObject1, GameObject physObject2)
         {
             PointFloat vel1 = physObject1.GetVelocity();
             PointFloat vel2 = physObject2.GetVelocity();
@@ -113,18 +113,18 @@ namespace TomatoEngine
 
         }
 
-        public static void HandleAllObjects( RenderObject physObject, List<RenderObject> objectList)
+        public static void HandleAllObjects( GameObject physObject, List<GameObject> objectList)
         {
             if (Mode == PhysMode.CircleBox)
             {
-                foreach (RenderObject obj in objectList)
+                foreach (GameObject obj in objectList)
                 {
                     CollideCircleBox(physObject, obj);
                 }
             }
             else
             {
-                foreach (RenderObject obj in objectList)
+                foreach (GameObject obj in objectList)
                 {
                     CollideBox(physObject, obj);
                 }
@@ -133,11 +133,11 @@ namespace TomatoEngine
         }
 
         //is colliding
-        public static bool IsOverlappingInCircle(RenderObject physObject)
+        public static bool IsOverlappingInCircle(GameObject physObject)
         {
             PointFloat physPos = physObject.GetPosition();
             float physSize = physObject.GetPhysSize();
-            foreach (RenderObject obj in TomatoMainEngine.GameObjects)
+            foreach (GameObject obj in TomatoMainEngine.GameObjects)
             {
                 if (obj.HasPhysics() && !(obj.IsParticle() && obj.Type == physObject.Type) && obj != physObject)
                 {
@@ -150,7 +150,7 @@ namespace TomatoEngine
             }
             return false;
         }
-        public static bool IsOverlappingInCircle(RenderObject physObject1, RenderObject physObject2)
+        public static bool IsOverlappingInCircle(GameObject physObject1, GameObject physObject2)
         {
             PointFloat physPos = physObject1.GetPosition();
             float physSize = physObject1.GetPhysSize();
@@ -166,13 +166,13 @@ namespace TomatoEngine
             }
             return false;
         }
-        public static List<RenderObject> GetAllOverlapping(RenderObject physObject)
+        public static List<GameObject> GetAllOverlapping(GameObject physObject)
         {
             _tempList.Clear();
             if(Mode == PhysMode.CircleBox){
                 PointFloat physPos = physObject.GetPosition();
                 float physSize = physObject.GetPhysSize();
-                foreach (RenderObject obj in TomatoMainEngine.GameObjects)
+                foreach (GameObject obj in TomatoMainEngine.GameObjects)
                 {
                     if (obj.HasPhysics() && obj != physObject && !(physObject.IsParticle() && obj.Type == physObject.Type))
                     {
@@ -191,7 +191,7 @@ namespace TomatoEngine
             {
                 PointFloat physPos = physObject.GetPosition();
                 PointFloat physSize = physObject.GetSize();
-                foreach (RenderObject obj in TomatoMainEngine.GameObjects)
+                foreach (GameObject obj in TomatoMainEngine.GameObjects)
                 {
                     if (obj.HasPhysics() && obj != physObject && !(physObject.IsParticle() && obj.Type == physObject.Type))
                     {

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TomatoEngine.SoundBoard
 {
-    public class Waves : RenderObject
+    public class Waves : GameObject
     {
         private float[] _data;
         private float _x;
@@ -33,7 +33,7 @@ namespace TomatoEngine.SoundBoard
 
         public override void Draw(SharpGL.OpenGL gl)
         {
-            //base.Draw(gl);
+            base.Draw(gl);
             if(_data == null){
 
             }

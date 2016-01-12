@@ -78,7 +78,7 @@ namespace TomatoEngine
 
         private void openGLControl_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.F11){
+            if(e.KeyCode == Keys.F11 && !engine.settings.SizeLocked){
                 ToggleFullScreen();
                 return;
             }

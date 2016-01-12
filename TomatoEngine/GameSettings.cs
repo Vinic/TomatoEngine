@@ -8,6 +8,7 @@ namespace TomatoEngine
     public class GameSettings
     {
         private float _fSpeed;
+        public bool SizeLocked { get; set; }
 
 		public GameSettings(float fSpeed)
         {
