@@ -14,7 +14,7 @@ namespace TomatoEngine
         public static List<RenderObject> GameObjects = new List<RenderObject>();
         public RenderEngine renderEngine = new RenderEngine();
         public GameSettings settings = new GameSettings(1f);
-        private static Random GameRandom = new Random();
+        public static Random GameRandom = new Random();
         private static List<RenderObject> trash = new List<RenderObject>();
         private static List<RenderObject> toAdd = new List<RenderObject>();
         public static DebugTools DebugTools;
@@ -23,7 +23,7 @@ namespace TomatoEngine
         private Stopwatch _starUpdateTime = new Stopwatch();
         public int UpdateTime = 0;
         public int DrawTime = 0;
-        public Level _level;
+        public ILevel _level;
         private SharpGLForm _form;
         public TomatoMainEngine(SharpGLForm form)
         {
@@ -44,7 +44,7 @@ namespace TomatoEngine
                 gl.Enable(OpenGL.GL_BLEND);
                 gl.Enable(OpenGL.GL_TEXTURE_2D);
                 gl.Enable(OpenGL.GL_DEPTH_TEST);
-                //gl.Enable(OpenGL.GL_LIGHTING);
+                //fffgl.Enable(OpenGL.GL_LIGHTING);
                 gl.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
                 gl.ShadeModel(OpenGL.GL_SMOOTH);
                 //Darw the first frame with a load test
@@ -57,7 +57,9 @@ namespace TomatoEngine
                 resourceManager.InitTextures(gl);
                 DebugTools.LogToConsole("Loading Level");
                 //Loading level
-                _level = new MasterMindGame.MasterMind();
+                //_level = new MasterMindGame.MasterMind();
+                //_level.Build(this);
+                _level = new TimedFireworks.TimedLevel();
                 _level.Build(this);
                 //Startup is complete
                 StartupComplete = true;
@@ -94,6 +96,12 @@ namespace TomatoEngine
                     GameObjects.Add(toAdd[i]);
                 }
                 toAdd.Clear();
+                GameObjects.Sort(
+                    delegate(RenderObject p1, RenderObject p2)
+                    {
+                        return p1.Z_Index.CompareTo(p2.Z_Index);
+                    }
+                );
             }
 
             if (!Paused)
@@ -246,12 +254,6 @@ namespace TomatoEngine
         public static void AddGameObject(RenderObject obj)
         {
             toAdd.Add(obj);
-            GameObjects.Sort(
-                delegate(RenderObject p1, RenderObject p2)
-                {
-                    return p1.Z_Index.CompareTo(p2.Z_Index);
-                }
-            );
         }
         public void SetSize(int width, int height)
         {

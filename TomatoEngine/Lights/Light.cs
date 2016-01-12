@@ -24,13 +24,14 @@ namespace TomatoEngine.Lights
             SetStaticObject(true);
             EnableAirResistance(false);
             EnablePhysics(false);
+            Z_Index = 100;
         }
         public Light(int r, int g, int b, int parentId) 
             : base()
         {
             _light = new SharpGL.SceneGraph.Lighting.Light();
             _light.On = true;
-            Color col = Color.FromArgb(r, g, b);
+            Color col = Color.FromArgb(255,r, g, b);
             _light.Ambient = col;
             _light.Diffuse = col;
             _light.Specular = col;
@@ -71,7 +72,9 @@ namespace TomatoEngine.Lights
             if ( !_startup )
             {
                 _startup = true;
-                _light.Push(gl);
+                //_light.Push(gl);
+                _light.Bind(gl);
+                
             }
         }
     }
