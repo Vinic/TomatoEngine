@@ -1,29 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.Media;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
 using System;
+using System.IO;
 
 namespace TomatoEngine
 {
     class AudioObject
     {
         public string sLocation = "";
-        private SoundPlayer _tomatoPlayer;
+        private SoundEffect _tomatoPlayer;
+        //private SoundEffect _effectPlayer;
         public AudioObject(string location, bool playAudio)
         {
             if(location != ""){
                 sLocation = location;
-                _tomatoPlayer = new SoundPlayer(location);
+                _tomatoPlayer = SoundEffect.FromStream(File.OpenRead(location));
                 if (playAudio)
                 {
                     _tomatoPlayer.Play();
                 }
-                else
-                {
-                    _tomatoPlayer.Stop();
-                }
             }
+        }
+        public bool IsPlaying()
+        {
+            return false;
         }
         public void Play()
         {
@@ -42,6 +45,7 @@ namespace TomatoEngine
         {
             FrameworkDispatcher.Update();
             MediaPlayer.IsVisualizationEnabled = true;
+            
         }
 
         public static void PlaySound(string name)
@@ -66,6 +70,14 @@ namespace TomatoEngine
                 ex.Play();
             }
         }
+        public static void PlaySoundAdd(string name)
+        {
+
+
+            string location = ResourceManager.GetSoundLocationByName(name);
+            var a = new AudioObject(location, true);
+
+        }
 
         public static void PlayBackgroundMusic()
         {
@@ -80,6 +92,10 @@ namespace TomatoEngine
             MediaPlayer.Stop();
             MediaPlayer.Play(Song.FromUri(name, location));
 
+        }
+        public static int GetBackgroundMusicPos()
+        {
+            return (int)MediaPlayer.PlayPosition.TotalMilliseconds;
         }
         public static VisualizationData GetBackgroundVisData()
         {

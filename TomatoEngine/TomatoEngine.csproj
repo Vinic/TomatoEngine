@@ -102,6 +102,8 @@
     <Compile Include="SpaceGame\Asteroid.cs" />
     <Compile Include="SpaceGame\SpaceShip.cs" />
     <Compile Include="TextureLoader.cs" />
+    <Compile Include="TimedFireworks\FireWork.cs" />
+    <Compile Include="TimedFireworks\TimedCannon.cs" />
     <Compile Include="TimedFireworks\TimedLevel.cs" />
     <Compile Include="TomatoMainEngine.cs" />
     <EmbeddedResource Include="DebugTools.resx">
@@ -151,6 +153,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Audio\Bricks.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\explode.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\firework-explosion.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\lauch.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Audio\piano2.wav">
