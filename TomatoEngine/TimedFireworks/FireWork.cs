@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TomatoEngine.TimedFireworks
 {
-    public class FireWork : RenderObject
+    public class FireWork : GameObject
     {
         public bool Explode = true;
         private Random r = TomatoMainEngine.GameRandom;

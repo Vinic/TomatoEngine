@@ -13,7 +13,7 @@ namespace TomatoEngine.MasterMindGame
             
             engine.SetSize(300,600);
             engine.LockSize(true);
-            SoundPool.PlayBackgroundMusic("Arpanauts");
+            //SoundPool.PlayBackgroundMusic("Arpanauts");
             //SoundPool.PlayBackgroundMusic("Bricks");
             var firstBackground = new GameObject();
             firstBackground.SetTexture("sunset");

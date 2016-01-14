@@ -9,6 +9,7 @@ namespace TomatoEngine
     static class ControlKeys
     {
         public static List<Keys> Downs = new List<Keys>();
+        public static List<Keys> Ups = new List<Keys>();
         public static KeysConverter keyC = new KeysConverter();
         public static void KeyDown(Keys key){
             if(!Downs.Contains(key)){
@@ -26,6 +27,7 @@ namespace TomatoEngine
             if (isDown)
             {
                 Downs.Remove(key);
+                Ups.Add(key);
             }
         }
         public static bool IsKeyDown(string key)
@@ -41,6 +43,27 @@ namespace TomatoEngine
                 }
             }
             return isDown;
+        }
+        public static bool IsKeyPressed(Keys key)
+        {
+            bool isUp = false;
+            foreach ( Keys down in Ups )
+            {
+                if ( down == key )
+                {
+                    isUp = true;
+                }
+            }
+            if ( Ups.Count > 0 && isUp )
+            {
+                Ups.Clear();
+            }
+            return isUp;
+        }
+        public static bool IsKeyPressed(string key)
+        {
+            Keys k = (Keys)System.Enum.Parse(typeof(Keys), key.ToUpper());
+            return IsKeyPressed(k);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace TomatoEngine.Particle
         private int _lifeTime = 10;
         private float _speed = 1;
         private int _parent = 0;
-        private int _trail = 10;
+        private int _trail = 1;
         public Particle(ImageTexture texture, float x, float y, float _rotation, float speed, int lifetime, float sizex, float sizey, byte[] color, int parent, bool physics, bool mass) : base()
         {
             Type = "Particle.Particle";
@@ -32,6 +32,15 @@ namespace TomatoEngine.Particle
             SetPhysSize(0.1f);
             SetColor(color);
             _parent = parent;
+            if ( parent  != 0 )
+            {
+                Z_Index = TomatoMainEngine.GetRenderObject(_parent).Z_Index - 1;
+            }
+            else
+            {
+                Z_Index = 999999999;
+            }
+            
         }
 
         public override void Update(GameSettings settings)

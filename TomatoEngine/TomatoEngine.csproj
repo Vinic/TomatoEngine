@@ -78,12 +78,13 @@
     <Compile Include="Lights\Light.cs" />
     <Compile Include="MasterMindGame\MasterMind.level.cs" />
     <Compile Include="MasterMindGame\MasterMindBoard.cs" />
+    <Compile Include="MasterMindGame\Pawn.cs" />
     <Compile Include="ParticleBallDemo\FlammingBall.cs" />
     <Compile Include="Particle\Particle.cs" />
     <Compile Include="Particle\ParticleSystem.cs" />
     <Compile Include="PhysEngine.cs" />
     <Compile Include="RenderEngine.cs" />
-    <Compile Include="RenderObject.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="ResourceManager.cs" />
     <Compile Include="Res\ResourceTomato.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -103,7 +104,7 @@
     <Compile Include="SpaceGame\Asteroid.cs" />
     <Compile Include="SpaceGame\SpaceShip.cs" />
     <Compile Include="TextureLoader.cs" />
-    <None Include="TimedFireworks\FireWork.cs" />
+    <Compile Include="TimedFireworks\FireWork.cs" />
     <Compile Include="TimedFireworks\TimedCannon.cs" />
     <Compile Include="TimedFireworks\TimedLevel.cs" />
     <Compile Include="TomatoMainEngine.cs" />
@@ -169,6 +170,12 @@
     <Content Include="Resources\Audio\piano2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Audio\woodClick.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Image\pawn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\Image\sunset.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -176,9 +183,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Image\background.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Image\car.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\Image\engineSmoke.png">
