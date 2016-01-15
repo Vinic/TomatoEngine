@@ -35,6 +35,13 @@ namespace TomatoEngine.MasterMindGame
                 _effect.Blow(0.05f, false);
             }            
         }
+        public override void Draw(SharpGL.OpenGL gl)
+        {
+            if (_pawnColor != PawnColor.None)
+            {
+                base.Draw(gl);
+            }
+        }
 
         public void SetPawnColor(PawnColor color)
         {
@@ -59,12 +66,7 @@ namespace TomatoEngine.MasterMindGame
             }
         }
 
-        public override void Draw(SharpGL.OpenGL gl)
-        {
-            if(_pawnColor != PawnColor.None){
-                base.Draw(gl);
-            }
-        }
+
 
         public void NextColor()
         {

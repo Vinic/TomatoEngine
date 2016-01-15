@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,6 +15,8 @@ namespace TomatoEngine.MasterMindGame
         private Helpers.Grid gridAwnser = new Helpers.Grid(1, 4);
         private PawnColor[] _codeToCrack;
         private int _selectedCol = 0, _selectedRow = 0;
+        private bool _gameEnded = false;
+        private ScoreDBDataSetTableAdapters.ScoresTableAdapter _adapter = new ScoreDBDataSetTableAdapters.ScoresTableAdapter();
         public MasterMindBoard()
             :base()
         {
@@ -73,12 +77,13 @@ namespace TomatoEngine.MasterMindGame
                 gridAwnser.Add(new Pawn(PawnColor.White, PawnType.Normal), 0, col);
                 gridAwnser.ObjectAt(0, col).Z_Index = 110;
             }
+            _gameEnded = false;
         }
 
         public override void Update(GameSettings settings)
         {
             base.Update(settings);
-            if(ControlKeys.IsKeyPressed(Keys.A)){
+            if(!_gameEnded && ControlKeys.IsKeyPressed(Keys.A)){
                 SoundPool.PlaySound("woodClick");
                 DeselectPawn(_selectedRow, _selectedCol);
                 _selectedCol--;
@@ -88,7 +93,7 @@ namespace TomatoEngine.MasterMindGame
                 }
                 SelectPawn(_selectedRow, _selectedCol);
             }
-            else if ( ControlKeys.IsKeyPressed(Keys.D) )
+            else if (!_gameEnded &&  ControlKeys.IsKeyPressed(Keys.D) )
             {
                 SoundPool.PlaySound("woodClick");
                 DeselectPawn(_selectedRow, _selectedCol);
@@ -98,20 +103,26 @@ namespace TomatoEngine.MasterMindGame
                 }
                 SelectPawn(_selectedRow, _selectedCol);
             }
-            if ( ControlKeys.IsKeyPressed(Keys.W) )
+            if (!_gameEnded &&  ControlKeys.IsKeyPressed(Keys.W) )
             {
                 SoundPool.PlaySound("woodClick");
                 Pawn p = (Pawn)gridAttempts.ObjectAt(_selectedRow, _selectedCol);
                 p.NextColor();
             }
-            else if ( ControlKeys.IsKeyPressed(Keys.S) )
+            else if (!_gameEnded &&  ControlKeys.IsKeyPressed(Keys.S) )
             {
                 SoundPool.PlaySound("woodClick");
                 Pawn p = (Pawn)gridAttempts.ObjectAt(_selectedRow, _selectedCol);
                 p.PrevColor();
             }
-            if(ControlKeys.IsKeyPressed(Keys.E)){
+            if(!_gameEnded && ControlKeys.IsKeyPressed(Keys.E)){
                 SubmitSet();
+            }
+            if (_gameEnded && ControlKeys.IsKeyPressed(Keys.R))
+            {
+                MakeCodeToCrack();
+                Reset();
+                MessageBox.Show("You won in " + (_selectedRow +1) + " steps","You won");
             }
 
         }
@@ -159,6 +170,8 @@ namespace TomatoEngine.MasterMindGame
             {
                 ShowAwnser();
                 LaunchTheFireWorks();
+                _gameEnded = true;
+                SaveScore(_selectedRow, 100);
             }
             
             DeselectPawn(_selectedRow, _selectedCol);
@@ -166,10 +179,38 @@ namespace TomatoEngine.MasterMindGame
             SelectPawn(_selectedRow, _selectedCol);
         }
 
+        private void SaveScore(int score, int time)
+        {
+            ScoreDBDataSet.ScoresDataTable rows = new ScoreDBDataSet.ScoresDataTable();
+            _adapter.Fill(rows);
+            var row = rows.NewScoresRow();
+            row.Score = score;
+            row.Time = time;
+            row.EndEdit();
+            rows.AddScoresRow(row);
+            int res = _adapter.Update(rows);
+            rows.AcceptChanges();
+            var d = _adapter.GetData();
+            
+        }
+
+        private int GetHighScore()
+        {
+            int outcome = 0;
+            ScoreDBDataSet.ScoresDataTable rows = new ScoreDBDataSet.ScoresDataTable();
+            _adapter.Fill(rows);
+            foreach(ScoreDBDataSet.ScoresRow row in rows.Rows){
+                if(row.Score > outcome){
+                    outcome = row.Score;
+                }
+            }
+            return outcome;
+        }
+
         private void LaunchTheFireWorks()
         {
             for(int i = 0; i < 4; i++ ){
-                TomatoMainEngine.AddGameObject(new TimedFireworks.FireWork(new PointFloat(0,-10), Pawn.ConvertPawnColor(_codeToCrack[i])));
+                TomatoMainEngine.AddGameObject(new TimedFireworks.FireWork(new PointFloat(0,-20), Pawn.ConvertPawnColor(_codeToCrack[i])));
             }
             
         }

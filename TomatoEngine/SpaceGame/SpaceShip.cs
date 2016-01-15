@@ -14,7 +14,7 @@ namespace TomatoEngine.SpaceGame
         {
             Type = "SpaceGame.SpaceShip";
             SetTexture(ResourceManager.GetTexture("spaceShip"));
-            engineFirePar.SetLifeTime(100, 200);
+            engineFirePar.SetLifeTime(10, 30);
             engineFirePar.SetRandomSpeed(true, 0.1f);
             gun.SetRandomSpeed(true, 0.1f); 
             gun.SetLifeTime(30, 30);
@@ -55,7 +55,9 @@ namespace TomatoEngine.SpaceGame
             {
                 gun.SetPos(Helpers.PhysicsAndPositions.OffsetPosition(GetPosition(), 2.0f, GetRotation() + (float)Math.PI * 0.5f));
                 gun.SetRot(GetRotation());
-                gun.Blow(1f, 3, true);
+                gun.SetSpread(Helpers.PhysicsAndPositions.PI * 2);
+                gun.SetLifeTime(100,200);
+                gun.Blow(1f, 100, false);
             }
             SetVelocity(vel);
             SetRotationVelocity(rotV);
